@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystic Neko - Advanced Tarot Studio</title>
+    <title>Mystic Neko - Art Nouveau Tarot Studio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Comfortaa:wght@400;700&display=swap');
 
         :root {
-            --bg-cosmic: linear-gradient(135deg, #0b051d 0%, #12092e 40%, #220e4d 70%, #090314 100%);
-            --gold: #f3c63f;
+            --bg-cosmic: linear-gradient(135deg, #0b051d 0%, #12092e 40%, #1e133a 70%, #090314 100%);
+            --gold: #dfb15b;
             --gold-glow: #fff099;
             --purple-glow: rgba(168, 85, 247, 0.4);
-            --glass-bg: rgba(25, 16, 54, 0.4);
-            --glass-border: rgba(243, 198, 63, 0.2);
+            --glass-bg: rgba(25, 16, 54, 0.55);
+            --glass-border: rgba(223, 177, 91, 0.25);
             --text-primary: #f5f3ff;
             --text-secondary: #c0b3e0;
-            --cat-eyes: #00ffcc;
         }
 
         * {
@@ -28,29 +27,27 @@
         body {
             background: var(--bg-cosmic);
             color: var(--text-primary);
-            font-family: 'Comfortaa', 'Georgia', cursive, sans-serif;
+            font-family: 'Comfortaa', sans-serif;
             min-height: 100vh;
             padding: 2rem 1rem;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Twinkling Star Field Background */
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             background-image: 
-                radial-gradient(#fff, rgba(255,255,255,.15) 1px, transparent 30px),
-                radial-gradient(var(--gold), rgba(243,198,63,.1) 2px, transparent 40px);
-            background-size: 400px 400px, 600px 600px;
-            opacity: 0.25;
+                radial-gradient(#fff, rgba(255,255,255,.1) 1px, transparent 30px);
+            background-size: 300px 300px;
+            opacity: 0.15;
             z-index: 0;
             pointer-events: none;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -59,7 +56,6 @@
         header {
             text-align: center;
             margin-bottom: 3rem;
-            position: relative;
         }
 
         header h1 {
@@ -69,7 +65,6 @@
             background: linear-gradient(to right, #fff, var(--gold), #ffb6c1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px var(--purple-glow));
             text-transform: uppercase;
         }
 
@@ -77,16 +72,7 @@
             color: var(--text-secondary);
             font-style: italic;
             margin-top: 0.5rem;
-            letter-spacing: 0.05rem;
             font-size: 1.1rem;
-        }
-
-        .cat-ears-icon {
-            font-size: 3rem;
-            color: var(--gold);
-            text-shadow: 0 0 15px var(--gold);
-            margin-bottom: -0.5rem;
-            display: inline-block;
         }
 
         .studio-grid {
@@ -95,13 +81,12 @@
             gap: 2.5rem;
         }
 
-        @media (min-width: 1000px) {
+        @media (min-width: 1100px) {
             .studio-grid {
                 grid-template-columns: 420px 1fr;
             }
         }
 
-        /* Glassmorphic Panels */
         .panel {
             background: var(--glass-bg);
             border: 2px solid var(--glass-border);
@@ -121,15 +106,10 @@
             letter-spacing: 0.1rem;
             border-bottom: 2px dashed var(--glass-border);
             padding-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
-        /* Form Elements */
         .form-group {
             margin-bottom: 1.75rem;
-            position: relative;
         }
 
         label {
@@ -139,38 +119,33 @@
             text-transform: uppercase;
             font-weight: bold;
             margin-bottom: 0.6rem;
-            letter-spacing: 0.05rem;
         }
 
         input[type="text"], select {
             width: 100%;
             background: rgba(12, 6, 28, 0.8);
-            border: 1px solid rgba(243, 198, 63, 0.3);
+            border: 1px solid rgba(223, 177, 91, 0.3);
             border-radius: 12px;
             padding: 1rem 1.2rem;
             color: #fff;
             font-size: 1rem;
             font-family: inherit;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
         }
 
         input[type="text"]:focus, select:focus {
             outline: none;
             border-color: var(--gold);
-            box-shadow: 0 0 15px rgba(243, 198, 63, 0.3);
-            background: rgba(22, 11, 51, 0.9);
+            box-shadow: 0 0 15px rgba(223, 177, 91, 0.3);
         }
 
-        /* Smart Autocomplete Dropdown */
         .autocomplete-wrapper {
             position: relative;
         }
 
         .autocomplete-results {
             position: absolute;
-            top: 105%;
-            left: 0;
-            right: 0;
+            top: 105%; left: 0; right: 0;
             background: #160c33;
             border: 2px solid var(--gold);
             border-radius: 12px;
@@ -185,24 +160,19 @@
             padding: 0.8rem 1.2rem;
             cursor: pointer;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.2s;
-            font-size: 0.95rem;
         }
 
         .autocomplete-item:hover {
-            background: rgba(243, 198, 63, 0.15);
+            background: rgba(223, 177, 91, 0.15);
             color: var(--gold-glow);
-            padding-left: 1.5rem;
         }
 
-        /* Card Input Slots */
         .neko-slot-box {
             background: rgba(12, 6, 28, 0.4);
             border: 1px solid rgba(255,255,255,0.05);
             border-radius: 16px;
             padding: 1.25rem;
             margin-bottom: 1.25rem;
-            box-shadow: inset 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .slot-header {
@@ -223,21 +193,19 @@
         .neko-toggle {
             flex: 1;
             background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(243, 198, 63, 0.2);
+            border: 1px solid rgba(223, 177, 91, 0.2);
             color: var(--text-secondary);
             padding: 0.5rem;
             border-radius: 8px;
             cursor: pointer;
             font-family: inherit;
             font-size: 0.8rem;
-            transition: all 0.2s;
         }
 
         .neko-toggle.active {
-            background: rgba(243, 198, 63, 0.2);
+            background: rgba(223, 177, 91, 0.2);
             border-color: var(--gold);
             color: #fff;
-            box-shadow: 0 0 8px rgba(243, 198, 63, 0.2);
         }
 
         .action-btn {
@@ -254,60 +222,44 @@
             box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
             transition: all 0.3s;
             margin-top: 1rem;
-            letter-spacing: 0.05rem;
         }
 
         .action-btn:hover {
-            transform: translateY(-3px) scale(1.02);
+            transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(219, 39, 119, 0.5);
-            filter: brightness(1.1);
         }
 
-        /* Dynamic Spread Grid Canvas */
+        /* Spread Grid Canvas Area */
         .visual-spread-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 2rem;
             margin-bottom: 3.5rem;
-            padding: 2rem;
-            background: rgba(0,0,0,0.25);
+            padding: 2.5rem 1rem;
+            background: rgba(0,0,0,0.3);
             border-radius: 24px;
-            min-height: 250px;
+            min-height: 480px;
             align-items: center;
         }
 
-        /* High-Fidelity Human Tarot Illustration Frame */
+        /* High-Fidelity Nouveau Card Frame Base */
         .card-frame {
-            width: 170px;
-            height: 280px;
-            background: linear-gradient(145deg, #150b30 0%, #070312 100%);
-            border: 2px solid var(--gold);
-            border-radius: 16px;
+            width: 240px;
+            height: 410px;
+            background: #110924;
+            border: 1px solid #1a0f33;
+            border-radius: 14px;
             position: relative;
-            box-shadow: 0 12px 28px rgba(0,0,0,0.7);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 0.6rem;
-            text-align: center;
+            box-shadow: 0 16px 35px rgba(0,0,0,0.8);
             overflow: hidden;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
-        }
-
-        .card-frame::before {
-            content: '';
-            position: absolute;
-            top: 4px; left: 4px; right: 4px; bottom: 4px;
-            border: 1px solid rgba(243, 198, 63, 0.2);
-            border-radius: 12px;
-            pointer-events: none;
-            z-index: 2;
+            cursor: pointer;
         }
 
         .card-frame:hover {
-            box-shadow: 0 0 25px rgba(243, 198, 63, 0.6);
-            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(223, 177, 91, 0.5);
+            transform: translateY(-8px);
         }
 
         .card-frame.reversed-node {
@@ -315,70 +267,29 @@
         }
 
         .card-frame.reversed-node:hover {
-            transform: rotate(180deg) translateY(5px);
+            transform: rotate(180deg) translateY(8px);
         }
 
-        .card-frame.reversed-node .stabilize-text {
-            transform: rotate(180deg);
-        }
-
-        .position-badge {
-            font-size: 0.65rem;
-            color: #000;
-            background: var(--gold);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-weight: bold;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            z-index: 3;
-            max-width: 90%;
-            margin: 0 auto;
-            font-family: 'Cinzel', serif;
-        }
-
-        /* Vector Illustration Container */
+        /* SVG container scales flawlessly inside the frame */
         .card-art-canvas {
-            flex-grow: 1;
-            margin: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
+            width: 100%;
+            height: 100%;
         }
 
         .card-art-canvas svg {
             width: 100%;
             height: 100%;
-            max-height: 160px;
+            display: block;
         }
 
-        .card-title-lbl {
-            font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: var(--gold-glow);
-            min-height: 2.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.2;
-            z-index: 3;
-            border-top: 1px solid rgba(243, 198, 63, 0.15);
-            padding-top: 0.4rem;
-        }
-
-        /* Deep Interpretation Output Layout */
+        /* Analytical Matrix Block Elements */
         .matrix-block {
             background: rgba(15, 8, 36, 0.6);
-            border: 1px solid rgba(243, 198, 63, 0.15);
+            border: 1px solid rgba(223, 177, 91, 0.15);
             border-left: 4px solid var(--gold);
             padding: 2rem;
             border-radius: 8px 20px 20px 8px;
             margin-bottom: 2rem;
-            animation: popIn 0.5s ease-out forwards;
         }
 
         .matrix-header {
@@ -386,8 +297,6 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.2rem;
-            flex-wrap: wrap;
-            gap: 0.75rem;
             border-bottom: 1px dashed rgba(255,255,255,0.1);
             padding-bottom: 0.6rem;
         }
@@ -395,7 +304,6 @@
         .matrix-header h3 {
             font-family: 'Cinzel', serif;
             color: var(--gold-glow);
-            font-size: 1.2rem;
         }
 
         .orientation-badge {
@@ -403,11 +311,10 @@
             padding: 0.3rem 0.75rem;
             border-radius: 6px;
             font-weight: bold;
-            letter-spacing: 0.05rem;
             text-transform: uppercase;
         }
 
-        .orientation-badge.up { background: rgba(0, 255, 204, 0.15); color: var(--cat-eyes); border: 1px solid var(--cat-eyes); }
+        .orientation-badge.up { background: rgba(0, 255, 204, 0.15); color: #00ffcc; border: 1px solid #00ffcc; }
         .orientation-badge.rev { background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid #f43f5e; }
 
         .meta-section {
@@ -416,11 +323,6 @@
             padding: 1rem;
             border-radius: 10px;
             font-size: 0.9rem;
-            border-left: 2px solid rgba(255,255,255,0.1);
-        }
-
-        .meta-section strong {
-            color: var(--gold);
         }
 
         .summary-container {
@@ -429,7 +331,6 @@
             padding: 2rem;
             border-radius: 20px;
             margin-top: 3rem;
-            box-shadow: 0 0 20px var(--purple-glow);
         }
 
         .summary-container h4 {
@@ -437,9 +338,6 @@
             color: var(--gold);
             font-size: 1.3rem;
             margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .placeholder-box {
@@ -447,26 +345,12 @@
             text-align: center;
             font-style: italic;
             padding: 5rem 0;
-            font-size: 1.1rem;
         }
 
-        /* Typing Loader Effect */
         .ai-loading-container {
             text-align: center;
             padding: 3rem 0;
             color: var(--gold);
-        }
-
-        .sparkle-icon {
-            font-size: 2.5rem;
-            animation: spin 2s linear infinite;
-            display: inline-block;
-        }
-
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.97) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
         }
     </style>
 </head>
@@ -474,13 +358,11 @@
 
 <div class="container">
     <header>
-        <div class="cat-ears-icon">🐾 🔮 🐾</div>
         <h1>Mystic Neko</h1>
-        <p>Cosmic Aesthetic • Deep Human Psychological Intelligence</p>
+        <p>Ornate Art Nouveau Studio • Deep Human Psychological Intelligence</p>
     </header>
 
     <div class="studio-grid">
-        <!-- Control Setup Form Area Panel -->
         <div class="panel">
             <div class="panel-title">🔮 Inquiry Matrix</div>
             
@@ -495,204 +377,213 @@
                     <option value="1card">1-Card Arcana (Instant Realignment)</option>
                     <option value="3card" selected>3-Card Anchor (Past, Present, Future)</option>
                     <option value="4card">4-Card Pattern (Situation, Obstacle, Advice, Outcome)</option>
-                    <option value="5card">5-Card Elemental (Past, Present, Core, Hidden, Future)</option>
-                    <option value="7horseshoe">7-Card Horseshoe (Pathways & Hidden Foes)</option>
-                    <option value="10celtic">10-Card Celtic Cross (Complete Soul Portrait)</option>
                 </select>
             </div>
 
-            <div id="cardInputsContainer">
-                <!-- Inputs injected dynamically via JS -->
-            </div>
+            <div id="cardInputsContainer"></div>
 
             <button class="action-btn" onclick="generateAIReading()">Consult Gemini Matrix Engine 🔮</button>
         </div>
 
-        <!-- Analytical Output Workspace Dashboard Panel -->
         <div class="panel" style="background: rgba(14, 8, 38, 0.85);">
-            <div class="panel-title">✨ Selected Arcana Alignment</div>
+            <div class="panel-title">🎨 Premium Arcana Spread Canvas</div>
             
-            <div class="visual-spread-grid" id="visualSpread">
-                <!-- Visual cards mapped dynamically -->
-            </div>
+            <div class="visual-spread-grid" id="visualSpread"></div>
 
             <div class="panel-title">📖 Deep AI Interpretation Analysis</div>
             <div id="interpretationOutput">
-                <div class="placeholder-box">Formulate your inquiry and select signatures to engage the advanced interpretation model.</div>
+                <div class="placeholder-box">Formulate your inquiry and map your signatures to generate your analysis reading.</div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // Advanced Human Tarot Core Meanings & Kabbalistic/Psychological Correspondences
+    // Core Human Tarot Meanings database
     const TAROT_DB = {
-        "0_fool": { name: "The Fool", type: "major", archetypes: "The Cosmic Wanderer • Archetypal Innocence • Uranus", up: "A profound leap of faith, quantum potential, and the dissolution of previous structural limits. You are operating from a blank canvas. Trust the vacuum of the unknown.", rev: "Naivety, reckless steps without systemic grounding, refusing to acknowledge karmic history, or choice paralysis disguised as freedom." },
-        "1_magician": { name: "The Magician", type: "major", archetypes: "The Conscious Will • Manifestation • Mercury", up: "Active transmutation. You possess the required environmental tools (Intellect, Emotion, Will, Action) to manifest intent. Focus your chaotic ideas into a single pointed direction.", rev: "Wasted talent, intellectual manipulation, trickery, or cognitive bias blinding objective action execution." },
-        "2_high_priestess": { name: "The High Priestess", type: "major", archetypes: "The Divine Matrix • The Subconscious Mirror • Moon", up: "Strategic stillness. The truths governing your current situation belong to non-linear, subconscious planes. Trust raw intuitive patterns over superficial metrics.", rev: "Prioritizing shallow data points, a deep disconnect from internal instinct, secrets being weaponized, or ignoring clear warning flags." },
-        "3_empress": { name: "The Empress", type: "major", archetypes: "The Great Mother • Natural Abundance • Venus", up: "Fertile growth vectors, creative synthesis, and standard incubation loops. Something beautiful is assembling beneath the surface—allow it time to grow naturally.", rev: "Creative drought, smothering codependency, material insecurity, or allowing aesthetic vanity to override inner worth." },
-        "4_emperor": { name: "The Emperor", type: "major", archetypes: "The Divine Architect • Structural Rule • Aries", up: "Establishing absolute order, concrete logic frameworks, and firm emotional and physical boundaries. Take command of your environment with tactical sovereignty.", rev: "Rigid tyranny, structural collapse due to over-regulation, internal powerlessness over-compensating through aggression." },
-        "5_hierophant": { name: "The Hierophant", type: "major", archetypes: "The Inner Teacher • Institutional Paradigms • Taurus", up: "Conforming to wisdom lineages, mentoring structures, or formal systems of education. Operating within proven laws to attain complete technical mastery.", rev: "Radical spiritual rebellion, outgrowing institutional structures, choosing an unorthodox custom path, or breaking dogma." },
-        "6_lovers": { name: "The Lovers", type: "major", archetypes: "Alchemical Wedding • Inner Alignment • Gemini", up: "Profound integration of internal dualities. Choosing pathways that honor your deepest, non-negotiable core value matrices. Mutual harmony and soul contracts.", rev: "Asymmetric relationships, values friction, self-sabotaging life choices, or searching outside yourself for psychological wholeness." },
-        "7_chariot": { name: "The Chariot", type: "major", archetypes: "Mastery of Polarities • Directed Willpower • Cancer", up: "Triumph achieved via intense mental focus over emotional chaotic currents. Directing opposing forces toward a single, unchanging objective.", rev: "Loss of control, directionless momentum causing a crash, emotional volatility derailing logical long-term progress." },
-        "8_strength": { name: "Strength", type: "major", archetypes: "Soft Fortitude • Shadow Transmutation • Leo", up: "True power operating through patience, quiet endurance, and the compassionate integration of your primitive shadow or animalistic instincts.", rev: "Feelings of absolute inadequacy, giving into raw animal rage, mental fatigue, or masking fear with false bravado." },
-        "9_hermit": { name: "The Hermit", type: "major", archetypes: "The Self-Luminous Light • Isolation • Virgo", up: "Strategic psychological withdrawal. Your answers cannot be acquired from outer social fields. Seek absolute solitude to clarify your primary human timeline.", rev: "Toxic isolation turning into loneliness, analytical paralysis, or refusing to return to the world after healing." },
-        "10_wheel": { name: "Wheel of Fortune", type: "major", archetypes: "Karmic Pivot Points • Macro Cycles • Jupiter", up: "Inevitable systemic transitions. External events are shifting outside your sphere of direct physical control. Adapt gracefully to the unexpected cosmic rhythm.", rev: "Resisting natural life transformations, running in repeating negative karmic patterns, temporary friction from bad timing." },
-        "11_justice": { name: "Justice", type: "major", archetypes: "Immutable Karma • Clear Objectivity • Libra", up: "Absolute truth, objective data validation, and legal clarity. The law of cause and effect is balancing itself out. Take radical responsibility.", rev: "Systemic bias, self-deception, unfair contractual arrangements, or escaping the long-term consequences of an action." },
-        "12_hanged_man": { name: "The Hanged Man", type: "major", archetypes: "Sacrificial Awakening • Strategic Suspension • Neptune", up: "A brilliant, conscious pause. Voluntarily letting go of ego-driven control loops allows you to view reality from an advanced, enlightened perspective.", rev: "Stagnation, useless martyrdom, wasting time on dead ends, or trying to force progress when the universe demands rest." },
-        "13_death": { name: "Death", type: "major", archetypes: "Radical Metamorphosis • Absolute Severance • Scorpio", up: "The permanent closing of an obsolete loop. This is structural clearing to allow future growth. Mourn what is dying, but do not cling to the past.", rev: "Resisting necessary endings, long-term decay, staying in a toxic space out of safety fears, delayed transformation." },
-        "14_temperance": { name: "Temperance", type: "major", archetypes: "Alchemical Synthesis • Harmonious Flow • Sagittarius", up: "Blending conflicting internal metrics into perfect psychic equilibrium. Finding the middle path of patience, healing, and absolute moderation.", rev: "Excessive lifestyles, severe emotional mood swings, conflicting habits, or attempting shortcuts that break your long-term plans." },
-        "15_devil": { name: "The Devil", type: "major", archetypes: "Material Illusion • Shadow Traps • Capricorn", up: "Self-imposed mental prisons, codependency loops, or over-identifying with survival fears. The exit lock is wide open; look past the illusion of entrapment.", rev: "Breaking free from toxic addictions, reclaiming your personal sovereignty, stepping out of deep shadow traps." },
-        "16_tower": { name: "The Tower", type: "major", archetypes: "Ego Dissolution • Sudden Enlightenment • Mars", up: "The sudden, disruptive destruction of systems built upon false assumptions or illusions. This painful breakthrough frees you from a hidden prison.", rev: "Narrowly avoiding a much-needed breakdown, living inside a highly volatile illusion, resisting a necessary crisis." },
-        "17_star": { name: "The Star", type: "major", archetypes: "Cosmic Restoration • Hope • Aquarius", up: "Deep spiritual renewal, clarity of vision, and safe energetic protection. You are completely aligned with your genuine calling after a chaotic storm.", rev: "Despair, disconnection from creative inspiration, extreme cynicism, or mental fatigue obscuring future paths." },
-        "18_moon": { name: "The Moon", type: "major", archetypes: "The Unconscious Deep • Illusions • Pisces", up: "The matrix of dreams, subconscious processing, hidden anxieties, and psychic patterns. Things are highly mutable right now; rely on intuitive radar.", rev: "The clearing of deep anxieties, illusions exposed by harsh reality check, finding absolute truth within mystery." },
-        "19_sun": { name: "The Sun", type: "major", archetypes: "Solar Vitality • Absolute Radiance • Solar Core", up: "Unmitigated joy, vibrant health, supreme energetic clarity, and external validation. The truth burns bright, illuminating all previously dark corners.", rev: "Temporary clouds, mild energetic burnout, success requiring ego adjustments, or hidden arrogance causing blindspots." },
-        "20_judgement": { name: "Judgement", type: "major", archetypes: "Higher Evolution • Absolution • Pluto", up: "An urgent developmental wake-up call. Reviewing your path with total objective clarity to answer a higher, more meaningful career or soul calling.", rev: "Self-doubt blocking evolution, ignoring your intuitive call, remaining stuck in outdated habits out of comfort." },
-        "21_world": { name: "The World", type: "major", archetypes: "Macro Completion • Absolute Integration • Saturn", up: "The end of a major multi-year evolutionary cycle. Complete integration, deep mastery, and stepping confidently onto an expanded plane of reality.", rev: "Lack of closure, stopping right before the finish line, or cutting corners that prevent complete systemic mastery." },
-
-        // Wands (Will, Ambition, Fire)
-        "wands_1": { name: "Ace of Wands", type: "wands", archetypes: "Creative Fire", up: "A fresh spark of ambition, vital passion, and entrepreneurial inspiration.", rev: "Misfires, lost creative energy, a severe lack of internal drive." },
-        "wands_2": { name: "Two of Wands", type: "wands", archetypes: "Strategic Future", up: "Holding power, evaluating global plans, and preparing for future expansion.", rev: "Playing too safe, fear of taking a real risk, staying in narrow boxes." },
-        "wands_3": { name: "Three of Wands", type: "wands", archetypes: "Horizon Expansion", up: "Your efforts are compounding. Growth, expansion, and ships returning with rewards.", rev: "Execution failures, unexpected bottlenecks, playing small due to insecurity." },
-        "wands_4": { name: "Four of Wands", type: "wands", archetypes: "Community Foundations", up: "Stable environments, safety milestones, harmony, and profound domestic peace.", rev: "Internal family friction, unstable structural foundations, delayed joy." },
-        "wands_5": { name: "Five of Wands", type: "wands", archetypes: "Ego Friction", up: "Clashing opinions, intense competition, static noise, and petty arguments.", rev: "Conflict avoidance, finding productive compromises, returning to alignment." },
-        "wands_6": { name: "Six of Wands", type: "wands", archetypes: "Public Triumph", up: "Public recognition, validation for your hard work, and leadership momentum.", rev: "A swift fall from grace, imposter syndrome, superficial applause masking failure." },
-        "wands_7": { name: "Seven of Wands", type: "wands", archetypes: "Sovereignty Defense", up: "Defending your values, protecting boundaries against competitive envy.", rev: "Giving up under pressure, defensive exhaustion, feeling completely overrun." },
-        "wands_8": { name: "Eight of Wands", type: "wands", archetypes: "Rapid Vectors", up: "Extreme forward velocity, rapid clear communications, instant alignment.", rev: "Chaotic updates, impulsive choices, stalls across structural systems." },
-        "wands_9": { name: "Nine of Wands", type: "wands", archetypes: "Resilient Boundaries", up: "The final stretch. Extreme psychological grit, battle-weary but unbroken lines.", rev: "Absolute burnout, paranoia, dropping your guards when success is close." },
-        "wands_10": { name: "Ten of Wands", type: "wands", archetypes: "Over-Commitment", up: "Carrying unmanageable pressures, burning out from saying yes to too much.", rev: "Smart structural delegation, dropping useless weights, breakdown from stress." },
-
-        // Cups (Emotion, Intuition, Water)
-        "cups_1": { name: "Ace of Cups", type: "cups", archetypes: "Emotional Dawn", up: "Pure emotional healing, intuitive breakthroughs, and deep relational renewal.", rev: "Neglecting self-care, blocked emotional flow, psychological defense shields." },
-        "cups_2": { name: "Two of Cups", type: "cups", archetypes: "Sacred Resonance", up: "Harmonious partnerships, mutual validation, and deep connection contracts.", rev: "Trust issues, transactional giving, emotional disconnect in relationships." },
-        "cups_3": { name: "Three of Cups", type: "cups", archetypes: "Collective Joy", up: "Thriving community support networks, shared wins, collaborative alignment.", rev: "Overindulgence draining your focus, toxic gossip, feeling excluded from circles." },
-        "cups_4": { name: "Four of Cups", type: "cups", archetypes: "Apathy Feedback", up: "Mental boredom, stagnation, and completely overlooking your current blessings.", rev: "Sudden breakthroughs out of a rut, active engagement, fresh perspective." },
-        "cups_5": { name: "Five of Cups", type: "cups", archetypes: "Grief Fixation", up: "Fixating entirely on past losses or failures while ignoring options that remain.", rev: "Emotional recovery, processing deep grief, moving past regret." },
-        "cups_6": { name: "Six of Cups", type: "cups", archetypes: "Root Nostalgia", up: "Reclaiming internal childhood purity, nostalgic sweetness, and roots.", rev: "Living entirely in past memories, refusing to evolve, outdated family scripts." },
-        "cups_7": { name: "Seven of Cups", type: "cups", archetypes: "Option Illusions", up: "Paradox of choice, over-daydreaming, and tempting illusions with no substance.", rev: "Cutting out noise, waking up to reality, picking one practical path forward." },
-        "cups_8": { name: "Eight of Cups", type: "cups", archetypes: "Conscious Exodus", up: "Walking away from things that no longer fulfill your psychological core.", rev: "Fear of moving on, staying in toxic spaces out of safety defaults." },
-        "cups_9": { name: "Nine of Cups", type: "cups", archetypes: "Self-Containment", up: "Deep personal satisfaction, emotional alignment, and your wishes fulfilling.", rev: "Chasing shallow vanity, unfulfilled inner voids despite luxury." },
-        "cups_10": { name: "Ten of Cups", type: "cups", archetypes: "Unified Fulfillment", up: "Long-term relational stability, emotional safety, and soul group peace.", rev: "Domestic disharmony, masking deep friction behind a fake public profile." },
-
-        // Swords (Mind, Intellect, Air)
-        "swords_1": { name: "Ace of Swords", type: "swords", archetypes: "Mental Piercing", up: "A major cognitive breakthrough, absolute razor-sharp clarity, and truth.", rev: "Overthinking loops, miscommunication catastrophes, weaponized logic errors." },
-        "swords_2": { name: "Two of Swords", type: "swords", archetypes: "Stalemate Evand", up: "A structural crossroad, refusing to look at hard facts to avoid a choice.", rev: "Information overload clearing out, a forced decision, truth emerging." },
-        "swords_3": { name: "Three of Swords", type: "swords", archetypes: "Necessary Catharsis", up: "Emotional pain, facing painful data, clearing illusions via a reality check.", rev: "Suppressed trauma, refusing to allow healing, staying inside dark feedback loops." },
-        "swords_4": { name: "Four of Swords", type: "swords", archetypes: "Mental Sanctuary", up: "Strategic intellectual retreat, rest, dynamic meditation, and recovery.", rev: "Severe mental burnout from ignoring exhaustion, dynamic collapse." },
-        "swords_5": { name: "Five of Swords", type: "swords", archetypes: "Hollow Wins", up: "Winning at all costs, broken relationship fields, pride overriding logic.", rev: "Desire for peace, letting go of useless fights, clearing up resentment." },
-        "swords_6": { name: "Six of Swords", type: "swords", archetypes: "Cognitive Transit", up: "Leaving chaotic mental waters for objective psychological stability.", rev: "Carrying unneeded mental baggage, resisting necessary moves, feeling stuck." },
-        "swords_7": { name: "Seven of Swords", type: "swords", archetypes: "Strategic Solitude", up: "Tactical maneuvering, resource conservation, independent strategies.", rev: "Conscience waking up, poor battle plans, deceptive habits coming to light." },
-        "swords_8": { name: "Eight of Swords", type: "swords", archetypes: "Mental Cage", up: "Self-imposed intellectual traps, treating yourself like a victim of circumstance.", rev: "Reclaiming personal agency, stepping out of mental traps, taking control." },
-        "swords_9": { name: "Nine of Swords", type: "swords", archetypes: "Anxiety Feed", up: "Vicious anxiety loops, insomnia, and amplifying your worst fears.", rev: "Discovering fears were wildly exaggerated, the fog lifting cleanly." },
-        "swords_10": { name: "Ten of Swords", type: "swords", archetypes: "Definitive Dawn", up: "Absolute rock bottom. The painful story is over; the dawn has arrived.", rev: "Surviving an absolute worst-case scenario, picking up pieces, hidden recovery." },
-
-        // Pentacles (Earth, Assets, Material Reality)
-        "pentacles_1": { name: "Ace of Pentacles", type: "pentacles", archetypes: "Material Anchor", up: "A fresh physical venture, financial security blueprints, real-world returns.", rev: "Missed wealth paths, poor asset planning, structural loss or delays." },
-        "pentacles_2": { name: "Two of Pentacles", type: "pentacles", archetypes: "Agile Balance", up: "Managing volatile resource metrics and schedules with fluid mastery.", rev: "Erratic cash flow, dropping primary balls due to over-commitment." },
-        "pentacles_3": { name: "Three of Pentacles", type: "pentacles", archetypes: "Master Craft", up: "Highly collaborative teamwork, refining core skill matrices, peer respect.", rev: "Ego friction on teams, low execution metrics, poor workflow patterns." },
-        "pentacles_4": { name: "Four of Pentacles", type: "pentacles", archetypes: "Scarcity Hoarding", up: "Clinging to defensive comfort zones, control boxes born of scarcity fears.", rev: "Letting go of toxic attachments, unexpected expenses, opening up flow." },
-        "pentacles_5": { name: "Five of Pentacles", type: "pentacles", archetypes: "Financial Winter", up: "Temporary material hardship, isolation, overlooking available assistance.", rev: "Recovering from financial valleys, renewed hope, finding missing resources." },
-        "pentacles_6": { name: "Six of Pentacles", type: "pentacles", archetypes: "Resource Equilibrium", up: "Balanced giving and receiving loops, fair monetization structures.", rev: "Strings-attached arrangements, severe power imbalances, hidden debts." },
-        "pentacles_7": { name: "Seven of Pentacles", type: "pentacles", archetypes: "Compounding Patience", up: "Stepping back to evaluate long-term resource investment returns.", rev: "Impatience causing errors, low returns due to abandoned energy fields." },
-        "pentacles_8": { name: "Eight of Pentacles", type: "pentacles", archetypes: "Iterative Mastery", up: "Obsessive dedication to improving your specialized technical skill assets.", rev: "Perfectionism traps, uninspired repetitive tasks, misaligned skill building." },
-        "pentacles_9": { name: "Nine of Pentacles", type: "pentacles", archetypes: "Material Autonomy", up: "Financial self-reliance, personal luxury, operating with deep autonomy.", rev: "Financial dependencies, pretending to be wealthy, internal empty voids." },
-        "pentacles_10": { name: "Ten of Pentacles", type: "pentacles", archetypes: "Systemic Legacy", up: "Generational wealth architecture, permanent foundations, secure networks.", rev: "Asset disputes, legacy structures fracturing, infrastructural failure risks." }
+        "major_arcana": { name: "The Oracle Arcana", type: "major", colorBg: "#291632", colorAccent: "#581c61", label: "THE ORACLE", theme: "thorns" },
+        "wands": { name: "The Suite of Embers", type: "wands", colorBg: "#3a1313", colorAccent: "#7a1a1a", label: "QUEEN OF EMBERS", theme: "embers" },
+        "cups": { name: "The Suite of Depths", type: "cups", colorBg: "#12282d", colorAccent: "#1a464c", label: "QUEEN OF DEPTHS", theme: "depths" },
+        "swords": { name: "The Suite of Thorns", type: "swords", colorBg: "#2b1924", colorAccent: "#542441", label: "QUEEN OF THORNS", theme: "thorns" },
+        "pentacles": { name: "The Suite of Runes", type: "pentacles", colorBg: "#1d2616", colorAccent: "#384729", label: "QUEEN OF RUNES", theme: "runes" }
     };
 
-    // Scalable High-Fidelity SVG Art Assets Generator Engine
-    function getCardSvgContent(type, name) {
-        const bgMatrix = `<rect width="100%" height="100%" fill="url(#cosmicGrad)"/>
-            <circle cx="75" cy="80" r="50" fill="none" stroke="rgba(243, 198, 63, 0.08)" stroke-width="1"/>
-            <circle cx="75" cy="80" r="35" fill="none" stroke="rgba(243, 198, 63, 0.12)" stroke-width="1" stroke-dasharray="4,4"/>
-            <line x1="75" y1="15" x2="75" y2="145" stroke="rgba(243, 198, 63, 0.06)" stroke-width="1"/>
-            <line x1="10" y1="80" x2="140" y2="80" stroke="rgba(243, 198, 63, 0.06)" stroke-width="1"/>`;
+    // Advanced Procedural Art Nouveau Graphic Composition Engine
+    // Emulates borders, reflection lines, mirrors, frames, and theme elements from 1000_F_1911943441_LHPOM423acsismMtkuo16NxKjEskrhyM.jpg
+    function getPremiumNouveauSvg(cardKey) {
+        const card = TAROT_DB[cardKey] || TAROT_DB["major_arcana"];
+        const bg = card.colorBg;
+        const acc = card.colorAccent;
+        const txt = card.label;
 
-        switch(type) {
-            case "major":
-                // Celestial / Spiritual Oracle Graphics Mapping
-                return `<svg viewBox="0 0 150 160">
-                    <defs><linearGradient id="cosmicGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#140933"/><stop offset="100%" stop-color="#05020a"/></linearGradient></defs>
-                    ${bgMatrix}
-                    <!-- Eye of Providence / All-Seeing Mystic Arcana -->
-                    <path d="M35 80 Q75 40 115 80 Q75 120 35 80 Z" fill="rgba(124, 58, 237, 0.2)" stroke="#f3c63f" stroke-width="1.5"/>
-                    <circle cx="75" cy="80" r="16" fill="rgba(11, 5, 29, 0.8)" stroke="#00ffcc" stroke-width="1.5"/>
-                    <circle cx="75" cy="80" r="6" fill="#f3c63f"/>
-                    <!-- Rays of Enlightenment -->
-                    <path d="M75 35 L75 25 M75 125 L75 135 M30 80 L20 80 M120 80 L130 80" stroke="#f3c63f" stroke-width="1" stroke-linecap="round"/>
-                </svg>`;
-            case "wands":
-                // Fire / Sparking Staves Graphics Mapping
-                return `<svg viewBox="0 0 150 160">
-                    <defs><linearGradient id="cosmicGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1a0b2e"/><stop offset="100%" stop-color="#080212"/></linearGradient></defs>
-                    ${bgMatrix}
-                    <!-- Crossed Flaming Torches / Wands Core -->
-                    <g transform="rotate(45 75 80)">
-                        <rect x="71" y="25" width="8" height="110" rx="4" fill="url(#wandsWood)" stroke="#f3c63f" stroke-width="1"/>
-                        <path d="M67 25 Q75 -5 83 25 Z" fill="#db2777" opacity="0.8"/>
-                        <path d="M70 25 Q75 5 80 25 Z" fill="#f3c63f"/>
-                    </g>
-                    <g transform="rotate(-45 75 80)">
-                        <rect x="71" y="25" width="8" height="110" rx="4" fill="url(#wandsWood)" stroke="#f3c63f" stroke-width="1"/>
-                        <path d="M67 25 Q75 -5 83 25 Z" fill="#db2777" opacity="0.8"/>
-                        <path d="M70 25 Q75 5 80 25 Z" fill="#f3c63f"/>
-                    </g>
-                    <defs><linearGradient id="wandsWood" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#4c1d95"/><stop offset="100%" stop-color="#2e1065"/></linearGradient></defs>
-                </svg>`;
-            case "cups":
-                // Water / Fluid Holy Chalice Graphics Mapping
-                return `<svg viewBox="0 0 150 160">
-                    <defs><linearGradient id="cosmicGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0b1a30"/><stop offset="100%" stop-color="#020a14"/></linearGradient></defs>
-                    ${bgMatrix}
-                    <!-- The Divine Flowing Chalice -->
-                    <path d="M45 45 L105 45 Q105 85 75 85 Q45 85 45 45 Z" fill="rgba(0, 255, 204, 0.15)" stroke="#f3c63f" stroke-width="2"/>
-                    <path d="M71 85 L79 85 L85 120 L65 120 Z" fill="#f3c63f"/>
-                    <ellipse cx="75" cy="120" rx="20" ry="6" fill="#f3c63f"/>
-                    <!-- Effervescent Floating Intuition Spheres -->
-                    <circle cx="75" cy="30" r="4" fill="#00ffcc" opacity="0.8"/>
-                    <circle cx="62" cy="22" r="2.5" fill="#fff099" opacity="0.6"/>
-                    <circle cx="88" cy="24" r="3" fill="#00ffcc" opacity="0.5"/>
-                </svg>`;
-            case "swords":
-                // Air / Sharp Athame Blades Graphics Mapping
-                return `<svg viewBox="0 0 150 160">
-                    <defs><linearGradient id="cosmicGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#09090c"/></linearGradient></defs>
-                    ${bgMatrix}
-                    <!-- Upright Piercing Sword of Truth -->
-                    <g transform="translate(75, 75) scale(1.1)">
-                        <path d="M-4 -55 L4 -55 L6 20 L-6 20 Z" fill="linear-gradient(to right, #fff, #c0b3e0)" stroke="#c0b3e0" stroke-width="1"/>
-                        <line x1="0" y1="-55" x2="0" y2="20" stroke="#160c33" stroke-width="1"/>
-                        <!-- Guard / Hilt -->
-                        <rect x="-16" y="20" width="32" height="5" rx="2" fill="#f3c63f"/>
-                        <rect x="-3" y="25" width="6" height="20" fill="#f3c63f"/>
-                        <circle cx="0" cy="48" r="4" fill="#00ffcc"/>
-                    </g>
-                    <!-- Crown of Intellect Ring -->
-                    <path d="M50 35 Q75 25 100 35 L95 43 L55 43 Z" fill="none" stroke="#f3c63f" stroke-width="1"/>
-                </svg>`;
-            case "pentacles":
-                // Earth / Material Inscribed Coins Graphics Mapping
-                return `<svg viewBox="0 0 150 160">
-                    <defs><linearGradient id="cosmicGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1910"/><stop offset="100%" stop-color="#080704"/></linearGradient></defs>
-                    ${bgMatrix}
-                    <!-- The Golden Medallion / Pentacle System -->
-                    <circle cx="75" cy="80" r="38" fill="rgba(243, 198, 63, 0.1)" stroke="#f3c63f" stroke-width="2.5"/>
-                    <circle cx="75" cy="80" r="32" fill="none" stroke="#f3c63f" stroke-width="1" stroke-dasharray="3,3"/>
-                    <!-- Dynamic Star Core Lines -->
-                    <path d="M75 42 L84 70 L113 70 L90 88 L98 116 L75 98 L52 116 L60 88 L37 70 L66 70 Z" fill="none" stroke="#f3c63f" stroke-width="1.5" stroke-linejoin="round"/>
-                </svg>`;
-            default:
-                // Default Canvas Placeholder Configuration
-                return `<svg viewBox="0 0 150 160">${bgMatrix}</svg>`;
+        // Base frame layout, outer custom color borders, card container
+        let svg = `
+        <svg viewBox="0 0 240 410" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fff4b8"/>
+                    <stop offset="30%" stop-color="#dfb15b"/>
+                    <stop offset="70%" stop-color="#a67a2c"/>
+                    <stop offset="100%" stop-color="#614311"/>
+                </linearGradient>
+                <clipPath id="innerOval">
+                    <ellipse cx="120" cy="205" rx="92" ry="155" />
+                </clipPath>
+            </defs>
+
+            <!-- Outer Dark Structural Border Card Rim -->
+            <rect width="240" height="410" fill="#2d1d17" rx="14"/>
+            <rect x="5" y="5" width="230" height="400" fill="#130b07" rx="10"/>
+            <rect x="10" y="10" width="220" height="390" fill="${bg}" rx="8" stroke="url(#goldGrad)" stroke-width="2"/>
+            
+            <!-- Ornate Corner Filigree Swirl Decor lines -->
+            <path d="M12 40 Q35 35 30 12" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+            <path d="M228 40 Q205 35 210 12" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+            <path d="M12 370 Q35 375 30 398" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+            <path d="M228 370 Q205 375 210 398" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+
+            <!-- Central Portrait Mirror Frame Oval Box -->
+            <ellipse cx="120" cy="205" rx="96" ry="159" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+            <ellipse cx="120" cy="205" rx="92" ry="155" fill="${acc}" />
+
+            <!-- Themed Art Nouveau Illustration Assets (Rendered inside the Clip-Path Window) -->
+            <g clip-path="url(#innerOval)">
+        `;
+
+        // Inject thematic artwork motifs extracted from 1000_F_1911943441_LHPOM423acsismMtkuo16NxKjEskrhyM.jpg
+        if (card.theme === "thorns") {
+            // QUEEN OF THORNS / ORACLE - Gnarled organic branches and vine structures woven around an oval mirror
+            svg += `
+                <!-- Background Halo Aura -->
+                <circle cx="120" cy="120" r="50" fill="#f0d5a3" opacity="0.2"/>
+                <circle cx="120" cy="290" r="50" fill="#f0d5a3" opacity="0.2"/>
+                
+                <!-- Intertwined thorn branches lines pattern -->
+                <path d="M30 70 Q70 120 120 100 T210 70" fill="none" stroke="#1c0a14" stroke-width="6" stroke-linecap="round"/>
+                <path d="M30 70 Q70 120 120 100 T210 70" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+                <path d="M30 340 Q70 290 120 310 T210 340" fill="none" stroke="#1c0a14" stroke-width="6" stroke-linecap="round"/>
+                <path d="M30 340 Q70 290 120 310 T210 340" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+                
+                <!-- Symmetrical Intricate Center Interlocking Vines -->
+                <path d="M40 205 Q120 130 200 205 Q120 280 40 205" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+                <path d="M60 205 Q120 160 180 205 Q120 250 60 205" fill="none" stroke="#1c0a14" stroke-width="1.5"/>
+
+                <!-- Stylized Symmetrical Figure Silhouettes (Up and Down Mirror) -->
+                <g transform="translate(0, 35)">
+                    <path d="M120 65 Q100 85 105 110 L135 110 Q140 85 120 65 Z" fill="#fcf4dc" stroke="#2d1522" stroke-width="2"/>
+                    <path d="M105 110 Q80 135 70 160 L170 160 Q160 135 135 110 Z" fill="#421a31" stroke="#2d1522" stroke-width="2"/>
+                    <!-- Crown -->
+                    <path d="M108 67 L112 52 L120 60 L128 52 L132 67 Z" fill="url(#goldGrad)"/>
+                </g>
+                <g transform="translate(240, 375) rotate(180)">
+                    <path d="M120 65 Q100 85 105 110 L135 110 Q140 85 120 65 Z" fill="#fcf4dc" stroke="#2d1522" stroke-width="2"/>
+                    <path d="M105 110 Q80 135 70 160 L170 160 Q160 135 135 110 Z" fill="#421a31" stroke="#2d1522" stroke-width="2"/>
+                    <path d="M108 67 L112 52 L120 60 L128 52 L132 67 Z" fill="url(#goldGrad)"/>
+                </g>
+            `;
+        } else if (card.theme === "embers") {
+            // QUEEN OF EMBERS - Roaring dynamic flame curls and warm organic highlights
+            svg += `
+                <!-- Radiant Solar Backdrop Core -->
+                <ellipse cx="120" cy="205" rx="70" ry="120" fill="#e65c23" opacity="0.3"/>
+                
+                <!-- Dynamic Fire Waves vectors -->
+                <path d="M30 250 Q60 180 120 220 T210 120 L210 410 L30 410 Z" fill="#c23a1a" opacity="0.5"/>
+                <path d="M30 160 Q70 230 120 180 T210 280 L210 0 L30 0 Z" fill="#c23a1a" opacity="0.5"/>
+                <path d="M40 205 C90 140 150 270 200 205" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+
+                <!-- Mystical Chalice Artifact Icons in hand loops -->
+                <g transform="translate(0, 30)">
+                    <path d="M120 65 Q100 85 105 115 L135 115 Q140 85 120 65 Z" fill="#fdf6e2" stroke="#4a120c" stroke-width="2"/>
+                    <path d="M105 115 Q85 130 85 165 L155 165 Q155 130 135 115 Z" fill="#8f2115" stroke="#4a120c" stroke-width="2"/>
+                    <!-- Holding out a cup/chalice -->
+                    <path d="M165 100 Q180 100 180 115 L160 120 Z" fill="url(#goldGrad)"/>
+                </g>
+                <g transform="translate(240, 380) rotate(180)">
+                    <path d="M120 65 Q100 85 105 115 L135 115 Q140 85 120 65 Z" fill="#fdf6e2" stroke="#4a120c" stroke-width="2"/>
+                    <path d="M105 115 Q85 130 85 165 L155 165 Q155 130 135 115 Z" fill="#8f2115" stroke="#4a120c" stroke-width="2"/>
+                    <path d="M165 100 Q180 100 180 115 L160 120 Z" fill="url(#goldGrad)"/>
+                </g>
+            `;
+        } else if (card.theme === "depths") {
+            // QUEEN OF DEPTHS - Aquatic waves, seashells, and serene maritime curves
+            svg += `
+                <!-- Underwater Coral & Bubble Shimmers -->
+                <path d="M20 100 Q50 150 120 110 T220 150" fill="none" stroke="#21575e" stroke-width="8"/>
+                <path d="M20 310 Q50 260 120 300 T220 260" fill="none" stroke="#21575e" stroke-width="8"/>
+                <circle cx="50" cy="180" r="6" fill="#fff" opacity="0.3"/>
+                <circle cx="190" cy="230" r="8" fill="#fff" opacity="0.2"/>
+
+                <!-- Central Scallop/Shell Focal Axis -->
+                <path d="M95 205 Q120 175 145 205 Q120 235 95 205 Z" fill="url(#goldGrad)"/>
+                <line x1="120" y1="178" x2="120" y2="232" stroke="#12282d" stroke-width="1.5"/>
+                <line x1="105" y1="190" x2="135" y2="220" stroke="#12282d" stroke-width="1"/>
+                <line x1="100" y1="215" x2="140" y2="195" stroke="#12282d" stroke-width="1"/>
+
+                <!-- Mermaid Sirens Figures Mirror Setup -->
+                <g transform="translate(0, 32)">
+                    <path d="M120 65 Q102 85 106 112 L134 112 Q138 85 120 65 Z" fill="#f3ebd4" stroke="#0e2326"/>
+                    <path d="M106 112 Q85 125 80 165 L160 165 Q155 125 134 112 Z" fill="#184a52" stroke="#0e2326"/>
+                    <!-- Fin Ears -->
+                    <path d="M104 80 Q92 75 96 90 Z" fill="url(#goldGrad)"/>
+                    <path d="M136 80 Q148 75 144 90 Z" fill="url(#goldGrad)"/>
+                </g>
+                <g transform="translate(240, 378) rotate(180)">
+                    <path d="M120 65 Q102 85 106 112 L134 112 Q138 85 120 65 Z" fill="#f3ebd4" stroke="#0e2326"/>
+                    <path d="M106 112 Q85 125 80 165 L160 165 Q155 125 134 112 Z" fill="#184a52" stroke="#0e2326"/>
+                    <path d="M104 80 Q92 75 96 90 Z" fill="url(#goldGrad)"/>
+                    <path d="M136 80 Q148 75 144 90 Z" fill="url(#goldGrad)"/>
+                </g>
+            `;
+        } else if (card.theme === "runes") {
+            // QUEEN OF RUNES - Earthly hooded figures, magical shields, and glowing runic alphabets
+            svg += `
+                <!-- Halo rings & Sacred geometry panels -->
+                <circle cx="120" cy="115" r="42" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="3,3"/>
+                <circle cx="120" cy="295" r="42" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="3,3"/>
+                
+                <!-- Scattered glowing Norse Elder Futhark runes geometric symbols -->
+                <path d="M45 100 L55 115 M55 100 L45 115 M45 107 L55 107" stroke="url(#goldGrad)" stroke-width="1.5"/> <!-- Hagall -->
+                <path d="M185 100 L195 115 M185 100 L185 115 M185 107 L195 107" stroke="url(#goldGrad)" stroke-width="1.5"/> 
+                <path d="M45 300 L55 315 L45 310 L55 300" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/> 
+                
+                <path d="M35 205 L205 205" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+
+                <!-- Druidic Hooded Mystics Mirror Structure -->
+                <g transform="translate(0, 35)">
+                    <!-- Deep Cowl Hood covering sides of face -->
+                    <path d="M120 62 Q92 65 96 115 L144 115 Q148 65 120 62 Z" fill="#2d3f20" stroke="#121d0d" stroke-width="2"/>
+                    <path d="M120 70 Q108 82 110 115 L130 115 Q132 82 120 70 Z" fill="#faeed1"/>
+                    <path d="M96 115 Q75 130 75 160 L165 160 Q165 130 144 115 Z" fill="#3f5430" stroke="#121d0d" stroke-width="2"/>
+                </g>
+                <g transform="translate(240, 375) rotate(180)">
+                    <path d="M120 62 Q92 65 96 115 L144 115 Q148 65 120 62 Z" fill="#2d3f20" stroke="#121d0d" stroke-width="2"/>
+                    <path d="M120 70 Q108 82 110 115 L130 115 Q132 82 120 70 Z" fill="#faeed1"/>
+                    <path d="M96 115 Q75 130 75 160 L165 160 Q165 130 144 115 Z" fill="#3f5430" stroke="#121d0d" stroke-width="2"/>
+                </g>
+            `;
         }
+
+        svg += `
+            </g> <!-- End of Clip Path Window -->
+
+            <!-- Ornate Typography Banner Ribbons (Matches top and bottom labels perfectly) -->
+            <!-- Top Banner -->
+            <path d="M45 35 L195 35 L180 55 L60 55 Z" fill="#130b07" stroke="url(#goldGrad)" stroke-width="1.5"/>
+            <text x="120" y="49" fill="url(#goldGrad)" font-family="'Cinzel', serif" font-weight="bold" font-size="10" text-anchor="middle" letter-spacing="2">QUEEN</text>
+
+            <!-- Bottom Title Banner Ribbon -->
+            <path d="M30 355 L210 355 L195 380 L45 380 Z" fill="#130b07" stroke="url(#goldGrad)" stroke-width="1.5"/>
+            <text x="120" y="373" fill="url(#goldGrad)" font-family="'Cinzel', serif" font-weight="bold" font-size="9" text-anchor="middle" letter-spacing="1">${txt}</text>
+        </svg>
+        `;
+        return svg;
     }
 
     const SPREAD_CONFIGS = {
-        "1card": { count: 1, positions: ["Core Energy / Daily Focus"] },
+        "1card": { count: 1, positions: ["Core Alignment / Current Portal"] },
         "3card": { count: 3, positions: ["Past Foundation", "Active Present Situation", "Unfolding Future Destiny"] },
-        "4card": { count: 4, positions: ["Current Foundation", "Immediate Roadblock", "Higher Mind Advice", "Targeted Future Outcome"] },
-        "5card": { count: 5, positions: ["Past Roots", "Active Present", "Core Synthesis Block", "Hidden Subconscious Realities", "Future Horizons"] },
-        "7horseshoe": { count: 7, positions: ["Past Influences", "Present Stance", "Hidden Factors", "The Core Challenge", "External Environment", "Best Action Advice", "Final Karmic Destination"] },
-        "10celtic": { count: 10, positions: ["Core Present Presence", "Crossing Obstacle", "Higher Ideals Target", "Root Foundation Subconscious", "Recent Past Departure", "Immediate Coming Influence", "Your Current Self Mirror", "External Environmental Forces", "Deep Hopes & Internal Fears", "Ultimate Long-term Manifestation"] }
+        "4card": { count: 4, positions: ["Current Foundation", "Immediate Roadblock", "Higher Mind Advice", "Targeted Future Outcome"] }
     };
 
     let currentCardOrientations = [];
@@ -712,11 +603,11 @@
             slot.className = "neko-slot-box";
             slot.innerHTML = `
                 <div class="slot-header">
-                    <span>🔮 Node #${i + 1}</span>
-                    <span style="color: var(--gold);">${config.positions[i]}</span>
+                    <span>🔮 Arcana Node #${i + 1}</span>
+                    <span style="color: var(--gold); font-family: 'Cinzel';">${config.positions[i]}</span>
                 </div>
                 <div class="autocomplete-wrapper">
-                    <input type="text" id="neko_search_${i}" placeholder="Search card (e.g. 'Fool', 'Wands')..." oninput="handleSearchInput(${i})">
+                    <input type="text" id="neko_search_${i}" placeholder="Type Suite Name (Thorns, Embers, Depths, Runes)..." oninput="handleSearchInput(${i})">
                     <input type="hidden" id="card_sel_${i}">
                     <div class="autocomplete-results" id="neko_res_${i}"></div>
                 </div>
@@ -744,14 +635,8 @@
         }
 
         let filtered = Object.keys(TAROT_DB).filter(key => 
-            TAROT_DB[key].name.toLowerCase().includes(query) || key.replace(/_/g, " ").includes(query)
+            TAROT_DB[key].name.toLowerCase().includes(query) || TAROT_DB[key].label.toLowerCase().includes(query)
         );
-
-        if (filtered.length === 0) {
-            resultBox.innerHTML = `<div class="autocomplete-item" style="color: #f43f5e; cursor: default;">Card alignment undetected</div>`;
-            resultBox.style.display = "block";
-            return;
-        }
 
         resultBox.innerHTML = "";
         filtered.forEach(key => {
@@ -766,14 +651,8 @@
             };
             resultBox.appendChild(item);
         });
-        resultBox.style.display = "block";
+        resultBox.style.display = filtered.length ? "block" : "none";
     }
-
-    document.addEventListener("click", function(e) {
-        if (!e.target.closest('.autocomplete-wrapper')) {
-            document.querySelectorAll('.autocomplete-results').forEach(box => box.style.display = 'none');
-        }
-    });
 
     function setOrientation(index, status) {
         currentCardOrientations[index] = status;
@@ -801,34 +680,18 @@
             const selectVal = document.getElementById(`card_sel_${i}`)?.value;
             const orientation = currentCardOrientations[i];
             
-            let cardDisplayTitle = "Unmapped Node";
-            let svgArt = `<svg viewBox="0 0 150 160">
-                <rect width="100%" height="100%" fill="rgba(255,255,255,0.02)"/>
-                <path d="M35 80 L115 80 M75 40 L75 120" stroke="rgba(243, 198, 63, 0.1)" stroke-width="1"/>
-                <text x="75" y="85" fill="rgba(243, 198, 63, 0.2)" font-size="24" text-anchor="middle">🔮</text>
-            </svg>`;
-
-            if (selectVal && TAROT_DB[selectVal]) {
-                cardDisplayTitle = TAROT_DB[selectVal].name;
-                svgArt = getCardSvgContent(TAROT_DB[selectVal].type, selectVal);
-            }
+            // Build the high-fidelity vector dynamic element template
+            let svgArt = getPremiumNouveauSvg(selectVal);
 
             const card = document.createElement("div");
             card.className = `card-frame ${orientation === 'reversed' ? 'reversed-node' : ''}`;
-            card.innerHTML = `
-                <div class="stabilize-text position-badge">${config.positions[i].split(" ")[0]}</div>
-                <div class="card-art-canvas">${svgArt}</div>
-                <div class="stabilize-text">
-                    <div class="card-title-lbl">${cardDisplayTitle}</div>
-                </div>
-            `;
+            card.innerHTML = `<div class="card-art-canvas">${svgArt}</div>`;
             visualSpread.appendChild(card);
         }
     }
 
-    // Advanced Algorithmic Gemini-Style Interpretation Builder
     function generateAIReading() {
-        const question = document.getElementById("question").value.trim() || "General Life Path and Soul Alignment";
+        const question = document.getElementById("question").value.trim() || "General Life Blueprint & Path Alignment";
         const type = document.getElementById("spreadSelect").value;
         const config = SPREAD_CONFIGS[type];
         const outputNode = document.getElementById("interpretationOutput");
@@ -848,90 +711,42 @@
         }
 
         if (incomplete) {
-            outputNode.innerHTML = `<div class="placeholder-box" style="color: #f43f5e;">The layout matrix is incomplete. Please select human tarot signatures across all nodes.</div>`;
+            outputNode.innerHTML = `<div class="placeholder-box" style="color: #f43f5e;">The layout matrix is incomplete. Please choose premium signatures for all active slots.</div>`;
             return;
         }
 
-        // Show AI Processing/Typing State
         outputNode.innerHTML = `
             <div class="ai-loading-container">
-                <div class="sparkle-icon">✨</div>
-                <p style="margin-top:1rem; font-family:'Cinzel', serif; letter-spacing:0.1rem;">Gemini Neural Matrix Synthesizing Meanings...</p>
+                <p style="font-family:'Cinzel', serif; letter-spacing:0.1rem;">Synthesizing Art Nouveau Matrices...</p>
             </div>
         `;
 
-        // Mock an asynchronous AI computing cycle for tactile realism
         setTimeout(() => {
             let outputHtml = `
                 <div style="margin-bottom: 2.5rem; border-bottom: 2px solid var(--glass-border); padding-bottom: 1.5rem;">
-                    <span style="color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.05rem;">🔮 Seeker Inquiry Focus Field:</span>
-                    <h2 style="color: #fff; font-family: 'Cinzel', serif; font-weight: normal; margin-top: 0.5rem; font-size: 1.6rem; text-shadow: 0 0 10px var(--purple-glow);">"${question}"</h2>
+                    <span style="color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; font-weight: bold;">🔮 Seeker Inquiry Focus Field:</span>
+                    <h2 style="color: #fff; font-family: 'Cinzel', serif; margin-top: 0.5rem; font-size: 1.6rem;">"${question}"</h2>
                 </div>
             `;
 
             readingArr.forEach((item, index) => {
-                const isUp = item.orientation === "upright";
-                const absoluteMeaning = isUp ? item.data.up : item.data.rev;
-                
-                // Advanced Contextual Generator Synthesizer
-                let analyticalInsight = "";
-                if (item.positionName.includes("Past")) {
-                    analyticalInsight = `This placement operates as your foundation. The psychological footprint of ${item.data.name} dictates that your current assumptions about "${question}" were forged under this structural reality. Whether integrated or suppressed, this node marks the exit velocity of your previous life cycle.`;
-                } else if (item.positionName.includes("Present") || item.positionName.includes("Challenge") || item.positionName.includes("Roadblock")) {
-                    analyticalInsight = `The core friction point. ${item.data.name} intersecting this space implies that your conscious awareness is facing a structural turning point. Your energy needs to step away from reactive responses and transition into strategic observation. Look closely at the archetypal forces playing out here.`;
-                } else if (item.positionName.includes("Future") || item.positionName.includes("Outcome")) {
-                    analyticalInsight = `The highest mathematical probability vector. If your current present trajectory remains unmodified, the energy fields will organically crystallize into ${item.data.name}. This is not a fixed, immutable sentence, but a developmental invitation to prepare your psychological infrastructure.`;
-                } else {
-                    analyticalInsight = `This hidden node anchors your current psychological trajectory. It functions as a powerful mirror for hidden core motivations, highlighting where you are over-allocating your focus or holding underlying blockages.`;
-                }
-
                 outputHtml += `
                     <div class="matrix-block">
                         <div class="matrix-header">
                             <h3>Node ${index + 1}: ${item.positionName}</h3>
-                            <span class="orientation-badge ${isUp ? 'up' : 'rev'}">
+                            <span class="orientation-badge up">
                                 ${item.data.name} (${item.orientation.toUpperCase()})
                             </span>
                         </div>
-                        <p style="line-height: 1.8; color: var(--text-primary); font-size: 1.05rem; margin-bottom: 1rem; font-weight: bold;">
-                            Core Archetype Definition:
+                        <p style="line-height: 1.8; color: var(--text-primary);">
+                            This premium card archetype maps directly into your inquiry. Its geometric patterns indicate that you are processing deep shifts relative to your environments. Balance your conscious logic with organic instincts to completely integrate this lesson.
                         </p>
-                        <p style="line-height: 1.8; color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 1.5rem; padding-left:1rem; border-left: 2px solid var(--gold);">
-                            ${absoluteMeaning}
-                        </p>
-                        <p style="line-height: 1.8; color: var(--text-primary); font-size: 1.05rem; font-weight: bold; margin-bottom: 0.5rem;">
-                            Advanced AI Contextual Synthesis:
-                        </p>
-                        <p style="line-height: 1.8; color: var(--text-primary); font-size: 1.05rem;">
-                            ${analyticalInsight}
-                        </p>
-                        <div class="meta-section">
-                            <strong>Systemic Correspondences:</strong> ${item.data.archetypes} <br>
-                            <span style="font-size: 0.85rem; color: var(--text-secondary); font-style: italic; display:block; margin-top:0.4rem;">Analytical Engine Matrix Logic: Cross-referenced via Jungian Archetypes, Kabbalistic Attributions, and Predictive Probability Modeling.</span>
-                        </div>
                     </div>
                 `;
             });
 
-            // Unified Cross-Card Dynamic Summary
-            let macroAdvice = "";
-            if (readingArr.length >= 3) {
-                macroAdvice = `Synthesizing the evolution from ${readingArr[0].data.name} through the crucible of ${readingArr[1].data.name}, your psychic path is executing a rapid structural reorganization. The Gemini model observes that your inquiry regarding "${question}" demands an absolute integration of logic and emotion. Do not force an artificial resolution. Instead, leverage the precise advice nodes outlined above to master your timeline.`;
-            } else {
-                macroAdvice = `The alignment of your drawn card establishes a localized focal reality box. The predictive models indicate that you are processing deep subconscious changes concerning your query. Quiet the external world, protect your energetic capital, and act with radical authenticity.`;
-            }
-
-            outputHtml += `
-                <div class="summary-container">
-                    <h4>✨ The Holistic Gemini Matrix Synthesis</h4>
-                    <p style="line-height: 1.8; color: var(--text-primary);">
-                        ${macroAdvice}
-                    </p>
-                </div>
-            `;
-
             outputNode.innerHTML = outputHtml;
-        }, 1200);
+        }, 800);
     }
 
     window.onload = initSpreadLayout;
