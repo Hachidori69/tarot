@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystic Oracle - Premium Tarot Studio</title>
+    <style>
+        :root {
+            --bg-cosmic: linear-gradient(135deg, #060214 0%, #0c0728 40%, #17093b 70%, #050110 100%);
+            --gold: #d4af37;
+            --gold-glow: #f3e5ab;
+            --purple-glow: rgba(147, 51, 234, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f0ff;
+            --text-secondary: #b4a9d4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cinzel', 'Didot', 'Georgia', serif;
+        }
+
+        body {
+            background: var(--bg-cosmic);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        /* Subtle background stars effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+            opacity: 0.2;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            letter-spacing: 0.3rem;
+            background: linear-gradient(to right, #fff, var(--gold), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px var(--purple-glow);
+            text-transform: uppercase;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 0.5rem;
+            letter-spacing: 0.1rem;
+        }
+
+        .studio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 900px) {
+            .studio-grid {
+                grid-template-columns: 350px 1fr;
+            }
+        }
+
+        /* Panels Shared Styling */
+        .panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .panel-title {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Form styling */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            background: rgba(15, 10, 36, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Dynamic Card Input Slots */
+        .card-slot-input {
+            background: rgba(255,255,255,0.01);
+            border: 1px dashed var(--glass-border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-slot-title {
+            font-size: 0.9rem;
+            color: var(--gold-glow);
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .orientation-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 0.4rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: rgba(214, 175, 55, 0.15);
+            border-color: var(--gold);
+            color: #fff;
+        }
+
+        .primary-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(109, 40, 217, 0.6);
+            background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+        }
+
+        /* Visual Layout Area */
+        .visual-spread-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            min-height: 280px;
+            align-items: center;
+        }
+
+        .tarot-card-visual {
+            width: 160px;
+            height: 270px;
+            background: linear-gradient(135deg, #1e1145 0%, #11072c 100%);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tarot-card-visual.reversed {
+            transform: rotate(180deg);
+        }
+
+        .tarot-card-visual.reversed .card-text-wrapper {
+            transform: rotate(180deg); /* Keeps text legible if desired, or comment out to flip text */
+        }
+
+        .card-position-tag {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            background: rgba(0,0,0,0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            align-self: center;
+        }
+
+        .card-art-placeholder {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(214, 175, 55, 0.15);
+            font-size: 3.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid rgba(214, 175, 55, 0.05);
+            border-radius: 6px;
+        }
+
+        .card-name-label {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #fff;
+            min-height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Interpretations Outputs */
+        .interpretation-block {
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 3px solid var(--gold);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .interpretation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .interpretation-header h3 {
+            color: var(--gold-glow);
+            font-size: 1.2rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .badge.upright { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge.reversed { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
+
+        .summary-box {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border: 1px solid var(--gold);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .summary-box h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .placeholder-text {
+            color: var(--text-secondary);
+            text-align: center;
+            font-style: italic;
+            padding: 4rem 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Mystic Oracle</h1>
+        <p>Generative Mirror of the Soul & Destiny</p>
+    </header>
+
+    <div class="studio-grid">
+        <!-- Control Form Panel -->
+        <div class="panel">
+            <h2 class="panel-title">Setup Reading</h2>
+            
+            <div class="form-group">
+                <label for="question">Your Seeker Question</label>
+                <input type="text" id="question" placeholder="What does the universe need to tell me?">
+            </div>
+
+            <div class="form-group">
+                <label for="spreadSelect">Choose Spread Formation</label>
+                <select id="spreadSelect" onchange="initSpreadLayout()">
+                    <option value="single">Single Card (Daily Guidance)</option>
+                    <option value="3card" selected>Three-Card Formation (Past, Present, Future)</option>
+                    <option value="cross">Four-Card Cross (Situation, Obstacle, Advice, Outcome)</option>
+                </select>
+            </div>
+
+            <div id="cardInputsContainer">
+                <!-- Dynamically populated via JavaScript -->
+            </div>
+
+            <button class="primary-btn" onclick="generateReading()">Synthesize Meaning</button>
+        </div>
+
+        <!-- Visuals and Analysis Dashboard Panel -->
+        <div class="panel" style="background: rgba(10, 6, 28, 0.7);">
+            <h2 class="panel-title">The Cosmic Spread</h2>
+            
+            <!-- Cards Visual Display Mapping Area -->
+            <div class="visual-spread-container" id="visualSpread">
+                <!-- Dynamically populated card nodes -->
+            </div>
+
+            <h2 class="panel-title">Divine Synthesis Interpretation</h2>
+            <div id="interpretationOutput">
+                <div class="placeholder-text">Input your question and drawn cards to calculate the alignment.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Comprehensive Database architecture containing all 78 Tarot Cards
+    const TAROT_DB = {
+        // Major Arcana
+        "0_fool": { name: "The Fool", upright: "New beginnings, innocence, spontaneous action, leap of faith.", reversed: "Recklessness, risk-taking, holding back, irresponsibility." },
+        "1_magician": { name: "The Magician", upright: "Manifestation, resourcefulness, power, inspired action.", reversed: "Manipulation, poor planning, untapped talent, wasted potential." },
+        "2_high_priestess": { name: "The High Priestess", upright: "Intuition, sacred knowledge, divine feminine, subconscious mind.", reversed: "Secret motives, ignoring inner voice, surface-level focus." },
+        "3_empress": { name: "The Empress", upright: "Abundance, creativity, nature, fertility, nurturing.", reversed: "Creative block, dependence, smothering, domestic disharmony." },
+        "4_emperor": { name: "The Emperor", upright: "Authority, structure, solid foundation, protection, discipline.", reversed: "Tyranny, rigidity, coldness, lack of discipline, powerlessness." },
+        "5_hierophant": { name: "The Hierophant", upright: "Spiritual wisdom, religious beliefs, conformity, tradition, institutions.", reversed: "Rebellion, unorthodox identity, structural breakdown, new paths." },
+        "6_lovers": { name: "The Lovers", upright: "Harmonious relationships, alignment of values, choices, cosmic love.", reversed: "Disharmony, misalignment, imbalance, bad choices." },
+        "7_chariot": { name: "The Chariot", upright: "Direction, control, willpower, victory, determination.", reversed: "Lack of direction, aggression, losing control, roadblocks." },
+        "8_strength": { name: "The Strength", upright: "Courage, inner fortitude, patience, compassionate power.", reversed: "Self-doubt, raw emotion, weakness, inadequacy." },
+        "9_hermit": { name: "The Hermit", upright: "Soul-searching, inner guidance, isolation, spiritual reflection.", reversed: "Loneliness, withdrawal, paranoia, refusal to look within." },
+        "10_wheel": { name: "Wheel of Fortune", upright: "Good luck, destiny, turning point, inevitable change.", reversed: "Bad luck, resisting change, breaking negative cycles." },
+        "11_justice": { name: "Justice", upright: "Fairness, truth, cause and effect, accountability.", reversed: "Dishonesty, unfairness, unaccountability, bias." },
+        "12_hanged_man": { name: "The Hanged Man", upright: "Pause, surrender, letting go, new perspectives.", reversed: "Stall, resistance, ego-investment, unnecessary sacrifice." },
+        "13_death": { name: "Death", upright: "Endings, transformation, transition, absolute release.", reversed: "Resistance to change, internal decay, stagnation, dependency." },
+        "14_temperance": { name: "Temperance", upright: "Balance, moderation, patience, purpose, alchemy.", reversed: "Imbalance, excess, clashing elements, lack of long-term vision." },
+        "15_devil": { name: "The Devil", upright: "Shadow self, attachment, addiction, materialism, illusion.", reversed: "Detachment, breaking free, reclaiming power, internal exploration." },
+        "16_tower": { name: "The Tower", upright: "Sudden change, upheaval, chaos, revelation, awakening.", reversed: "Avoiding disaster, fear of suffering, delayed collapse." },
+        "17_star": { name: "The Star", upright: "Hope, faith, purpose, renewal, cosmic serenity.", reversed: "Despair, lack of faith, discouragement, feeling disconnected." },
+        "18_moon": { name: "The Moon", upright: "Illusion, fear, anxiety, subconscious projections, intuition.", reversed: "Release of fear, unmasking secrets, clearing confusion." },
+        "19_sun": { name: "The Sun", upright: "Radiance, vitality, success, warmth, absolute truth.", reversed: "Temporary cloudiness, unrealistic optimism, hidden sadness." },
+        "20_judgement": { name: "Judgement", upright: "Reflection, reckoning, awakening, inner calling.", reversed: "Self-doubt, refusal of the call, malicious criticism." },
+        "21_world": { name: "The World", upright: "Completion, integration, achievement, global travel.", reversed: "Incomplete goals, lack of closure, shortcut attempts." },
+
+        // Wands (Suits)
+        "wands_1": { name: "Ace of Wands", upright: "Inspiration, new potential, growth, raw passion.", reversed: "Emerging ideas, delays, creative block, lack of direction." },
+        "wands_2": { name: "Two of Wands", upright: "Planning, future progress, discovery, decisions.", reversed: "Fear of change, safe bets, lack of planning." },
+        "wands_3": { name: "Three of Wands", upright: "Expansion, foresight, overseas opportunities.", reversed: "Playing small, execution failures, unexpected delays." },
+        "wands_4": { name: "Four of Wands", upright: "Celebration, homecoming, relaxation, harmony.", reversed: "Lack of community support, internal family tension." },
+        "wands_5": { name: "Five of Wands", upright: "Competition, disagreement, clashing egos, conflict.", reversed: "Conflict avoidance, compromise, peace returning." },
+        "wands_6": { name: "Six of Wands", upright: "Success, public recognition, progress, self-confidence.", reversed: "Egotism, fall from grace, lack of recognition." },
+        "wands_7": { name: "Seven of Wands", upright: "Defensiveness, perseverance, territorial protection, conviction.", reversed: "Giving up, overwhelmed, compromised morals." },
+        "wands_8": { name: "Eight of Wands", upright: "Rapid movement, quick alignment, sudden travel.", reversed: "Delays, panic, chaotic pacing, misfires." },
+        "wands_9": { name: "Nine of Wands", upright: "Resilience, final push, grit, battle-weary.", reversed: "Exhaustion, defensive paranoia, dropping guard." },
+        "wands_10": { name: "Ten of Wands", upright: "Burdens, responsibility, hard work, stress.", reversed: "Delegation, collapse under pressure, release of burden." },
+        "wands_page": { name: "Page of Wands", upright: "Exploration, discovery, free spirit, high energy.", reversed: "Immaturity, false starts, setbacks, lack of follow-through." },
+        "wands_knight": { name: "Knight of Wands", upright: "Charming, daring, passionate, action-oriented.", reversed: "Impulsive, reckless, volatile temperament." },
+        "wands_queen": { name: "Queen of Wands", upright: "Courageous, vibrant, fertile energy, leadership.", reversed: "Jealousy, manipulation, burning out, insecurity." },
+        "wands_king": { name: "King of Wands", upright: "Natural leader, grand vision, honor, execution prowess.", reversed: "Dictatorial, ruthless arrogance, unrealistic expectations." },
+
+        // Cups
+        "cups_1": { name: "Ace of Cups", upright: "New love, emotional overflow, deep intuition.", reversed: "Self-love neglect, repressed emotions, blockages." },
+        "cups_2": { name: "Two of Cups", upright: "Unified love, partnership, mutual attraction.", reversed: "Breakdowns, trust issues, emotional asymmetry." },
+        "cups_3": { name: "Three of Cups", upright: "Friendship, collaboration, community joy.", reversed: "Gossip, overindulgence, third-wheel dynamics." },
+        "cups_4": { name: "Four of Cups", upright: "Apathy, contemplation, missed opportunities.", reversed: "Awareness, active choice, breaking out of rut." },
+        "cups_5": { name: "Five of Cups", upright: "Loss, grief, regret, focused on negative.", reversed: "Acceptance, moving forward, emotional recovery." },
+        "cups_6": { name: "Six of Cups", upright: "Nostalgia, childhood memories, innocence.", reversed: "Living in past, outgrowing childhood ideals." },
+        "cups_7": { name: "Seven of Cups", upright: "Choices, illusion, wishful thinking, temptation.", reversed: "Clarity, alignment, narrowing focus to reality." },
+        "cups_8": { name: "Eight of Cups", upright: "Disillusionment, walking away, deeper search.", reversed: "Fear of moving on, staying in toxic environments." },
+        "cups_9": { name: "Nine of Cups", upright: "Contentment, satisfaction, wish fulfillment.", reversed: "Greed, superficial success, unfulfilled inner void." },
+        "cups_10": { name: "Ten of Cups", upright: "Divine alignment, blissful marriage, home peace.", reversed: "Broken home, misaligned family core values." },
+        "cups_page": { name: "Page of Cups", upright: "Intuitive messages, creative flow, sensitivity.", reversed: "Emotional immaturity, dramatic outbursts, creative block." },
+        "cups_knight": { name: "Knight of Cups", upright: "Romance, artistic idealism, following heart.", reversed: "Moodiness, unrealistic expectations, deception." },
+        "cups_queen": { name: "Queen of Cups", upright: "Compassionate empathy, psychic safety, healer.", reversed: "Co-dependency, emotional manipulation, martyrdom." },
+        "cups_king": { name: "King of Cups", upright: "Emotional balance, wisdom, diplomatic mastery.", reversed: "Volatile mood, cold manipulation, emotional detachment." },
+
+        // Swords
+        "swords_1": { name: "Ace of Swords", upright: "Breakthrough, clarity, sharp mind, victory.", reversed: "Confusion, chaotic thoughts, miscommunication." },
+        "swords_2": { name: "Two of Swords", upright: "Stalemate, crossroads, difficult choices.", reversed: "Information overload, truth exposed, deadlock break." },
+        "swords_3": { name: "Three of Swords", upright: "Heartbreak, emotional pain, separation.", reversed: "Recovery, forgiveness, processing residual grief." },
+        "swords_4": { name: "Four of Swords", upright: "Rest, rejuvenation, mental sanctuary.", reversed: "Burnout, mental crash, returning to activity early." },
+        "swords_5": { name: "Five of Swords", upright: "Ambition won at any cost, hollow victory.", reversed: "Lingering resentment, desire for peace, resolution." },
+        "swords_6": { name: "Six of Swords", upright: "Transition, moving away, mental passage.", reversed: "Unresolved luggage, resisting movement, stuck." },
+        "swords_7": { name: "Seven of Swords", upright: "Deception, strategy, stealth, independence.", reversed: "Conscience kicking in, exposure, bad strategies." },
+        "swords_8": { name: "Eight of Swords", upright: "Imprisonment, self-victimization, restrictions.", reversed: "Reclaiming autonomy, self-reliance, escaping prison." },
+        "swords_9": { name: "Nine of Swords", upright: "Anxiety, nightmares, deep worry, insomnia.", reversed: "Objective reality check, release of irrational fear." },
+        "swords_10": { name: "Ten of Swords", upright: "Backstabbing, painful ending, rock bottom.", reversed: "Regeneration, surviving the worst, turning corners." },
+        "swords_page": { name: "Page of Swords", upright: "Curiosity, mental agility, communication focus.", reversed: "All talk no action, cyberattacks, vindictive speech." },
+        "swords_knight": { name: "Knight of Swords", upright: "Ambitious drive, quick actions, logical focus.", reversed: "Impulsive cruelty, lack of direction, erratic action." },
+        "swords_queen": { name: "Queen of Swords", upright: "Unbiased truth, clear borders, analytical sharpness.", reversed: "Coldness, overly critical, emotional suppression." },
+        "swords_king": { name: "King of Swords", upright: "Intellectual command, logic, system truth.", reversed: "Tyranny, corrupt authority, biased manipulation." },
+
+        // Pentacles
+        "pentacles_1": { name: "Ace of Pentacles", upright: "New financial avenue, luxury, manifestation seed.", reversed: "Missed financial opportunity, poor planning, loss." },
+        "pentacles_2": { name: "Two of Pentacles", upright: "Adaptability, priorities balance, management.", reversed: "Disorganization, over-committed, erratic finances." },
+        "pentacles_3": { name: "Three of Pentacles", upright: "Teamwork, masterful craft, collaboration.", reversed: "Ego problems, working solo, low craftsmanship quality." },
+        "pentacles_4": { name: "Four of Pentacles", upright: "Scarcity mindset, security, control.", reversed: "Letting go of attachment, spending sprees, loss." },
+        "pentacles_5": { name: "Five of Pentacles", upright: "Financial hardship, isolation, poverty mindset.", reversed: "Recovery from loss, spiritual awakening, hope returns." },
+        "pentacles_6": { name: "Six of Pentacles", upright: "Generosity, mutual giving, financial flow.", reversed: "Selfishness, strings-attached loans, dynamic imbalance." },
+        "pentacles_7": { name: "Seven of Pentacles", upright: "Long term investment, patience, evaluating work.", reversed: "Low effort rewards, impatience, giving up too early." },
+        "pentacles_8": { name: "Eight of Pentacles", upright: "Education, mastery, repetition, dedication.", reversed: "Perfectionism trap, uninspired labor, wrong direction." },
+        "pentacles_9": { name: "Nine of Pentacles", upright: "Self-reliance, luxury, reward for hard work.", reversed: "Financial dependency, superficial wealth, safety issues." },
+        "pentacles_10": { name: "Ten of Pentacles", upright: "Generational wealth, stable family legacy.", reversed: "Asset dispute, inheritance fighting, structural failure." },
+        "pentacles_page": { name: "Page of Pentacles", upright: "Ambition, practical ideas, manifestation focus.", reversed: "Procrastination, short-term schemes, lack of execution." },
+        "pentacles_knight": { name: "Knight of Pentacles", upright: "Methodical, reliable, routine-driven work ethic.", reversed: "Lazy, stagnant, obsessively stubborn, boring path." },
+        "pentacles_queen": { name: "Queen of Pentacles", upright: "Practical mother, domestic security, stability.", reversed: "Work-life imbalance, material insecurity, smothering." },
+        "pentacles_king": { name: "King of Pentacles", upright: "Abundance, discipline, successful entrepreneurship.", reversed: "Obsessively material, corrupt businessman, control loops." }
+    };
+
+    // Configuration for layout types
+    const SPREAD_CONFIGS = {
+        single: { count: 1, positions: ["Daily Energy/Guidance"] },
+        "3card": { count: 3, positions: ["Past Influences", "Present Situation", "Future Matrix"] },
+        cross: { count: 4, positions: ["Core Situation", "Immediate Obstacle", "Higher Advice", "Ultimate Outcome"] }
+    };
+
+    // State tracker for chosen card variations
+    let currentCardOrientations = [];
+
+    // Dynamically builds the dropdown controls for selection inputs
+    function initSpreadLayout() {
+        const type = document.getElementById("spreadSelect").value;
+        const config = SPREAD_CONFIGS[type];
+        const inputContainer = document.getElementById("cardInputsContainer");
+        
+        inputContainer.innerHTML = "";
+        currentCardOrientations = [];
+
+        // Build HTML select dropdown options dynamically once
+        let optionsHtml = '<option value="">-- Choose Card --</option>';
+        for (const [key, card] of Object.entries(TAROT_DB)) {
+            optionsHtml += `<option value="${key}">${card.name}</option>`;
+        }
+
+        for (let i = 0; i < config.count; i++) {
+            currentCardOrientations.push("upright"); // Default state
+            
+            const div = document.createElement("div");
+            div.className = "card-slot-input";
+            div.innerHTML = `
+                <div class="card-slot-title">Card #${i + 1}: ${config.positions[i]}</div>
+                <select id="card_sel_${i}" onchange="updateVisuals()">
+                    ${optionsHtml}
+                </select>
+                <div class="orientation-toggle">
+                    <button id="btn_u_${i}" class="toggle-btn active" onclick="setOrientation(${i}, 'upright')">Upright</button>
+                    <button id="btn_r_${i}" class="toggle-btn" onclick="setOrientation(${i}, 'reversed')">Reversed</button>
+                </div>
+            `;
+            inputContainer.appendChild(div);
+        }
+        updateVisuals();
+    }
+
+    function setOrientation(index, status) {
+        currentCardOrientations[index] = status;
+        
+        const uprightBtn = document.getElementById(`btn_u_${index}`);
+        const reversedBtn = document.getElementById(`btn_r_${index}`);
+        
+        if (status === "upright") {
+            uprightBtn.classList.add("active");
+            reversedBtn.classList.remove("active");
+        } else {
+            reversedBtn.classList.add("active");
+            uprightBtn.classList.remove("active");
+        }
+        updateVisuals();
+    }
+
+    // Live updates the card positions with animation parameters
+    function updateVisuals() {
+        const type = document.getElementById("spreadSelect").value;
+        const config = SPREAD_CONFIGS[type];
+        const visualSpread = document.getElementById("visualSpread");
+        
+        visualSpread.innerHTML = "";
+
+        for (let i = 0; i < config.count; i++) {
+            const selectVal = document.getElementById(`card_sel_${i}`)?.value;
+            const orientation = currentCardOrientations[i];
+            
+            let cardName = "Mystic Arcana";
+            let displaySymbol = "✦";
+
+            if (selectVal && TAROT_DB[selectVal]) {
+                cardName = TAROT_DB[selectVal].name;
+                displaySymbol = selectVal.includes("wands") ? "🪄" : 
+                                selectVal.includes("cups") ? "🍷" : 
+                                selectVal.includes("swords") ? "⚔️" : 
+                                selectVal.includes("pentacles") ? "🪙" : "👁️";
+            }
+
+            const cardNode = document.createElement("div");
+            cardNode.className = `tarot-card-visual ${orientation === 'reversed' ? 'reversed' : ''}`;
+            cardNode.innerHTML = `
+                <div class="card-position-tag">${config.positions[i].split(" ")[0]}</div>
+                <div class="card-art-placeholder">${displaySymbol}</div>
+                <div class="card-text-wrapper">
+                    <div class="card-name-label">${cardName}</div>
+                </div>
+            `;
+            visualSpread.appendChild(cardNode);
+        }
+    }
+
+    // Primary synthesis engine compiling matrix meaning variables
+    function generateReading() {
+        const question = document.getElementById("question").value.trim();
+        const type = document.getElementById("spreadSelect").value;
+        const config = SPREAD_CONFIGS[type];
+        const outputNode = document.getElementById("interpretationOutput");
+        
+        let outputHtml = "";
+        let incomplete = false;
+        let selectedCardsData = [];
+
+        // Validate state mapping parameters
+        for (let i = 0; i < config.count; i++) {
+            const selectVal = document.getElementById(`card_sel_${i}`).value;
+            if (!selectVal) {
+                incomplete = true;
+                break;
+            }
+            selectedCardsData.push({
+                id: selectVal,
+                positionName: config.positions[i],
+                orientation: currentCardOrientations[i],
+                meta: TAROT_DB[selectVal]
+            });
+        }
+
+        if (incomplete) {
+            outputNode.innerHTML = `<div class="placeholder-text" style="color: #ef4444;">Please select a card for each active position in the spread layout.</div>`;
+            return;
+        }
+
+        // Header context statement configuration block
+        if (question) {
+            outputHtml += `
+                <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem;">
+                    <span style="color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase;">Inquiry Focus:</span>
+                    <h3 style="color: #fff; font-style: italic; font-weight: normal; margin-top: 0.25rem;">"${question}"</h3>
+                </div>
+            `;
+        }
+
+        // Loop array values to construct visual text nodes blocks
+        selectedCardsData.forEach(card => {
+            const textMeaning = card.orientation === "upright" ? card.meta.upright : card.meta.reversed;
+            outputHtml += `
+                <div class="interpretation-block">
+                    <div class="interpretation-header">
+                        <h3>${card.positionName} : <span style="color: #fff;">${card.meta.name}</span></h3>
+                        <span class="badge ${card.orientation}">${card.orientation}</span>
+                    </div>
+                    <p style="line-height: 1.6; color: var(--text-primary);">${textMeaning}</p>
+                </div>
+            `;
+        });
+
+        // Synthetic intelligence analytical conclusion matrix block output
+        outputHtml += `
+            <div class="summary-box">
+                <h4>Oracle Guidance Synthesis</h4>
+                <p style="line-height: 1.6; color: var(--text-secondary);">
+                    The alignment of these energies suggests a thread running through your inquiry. Pay close attention to structural patterns in <strong>${selectedCardsData[0].meta.name}</strong> as it interacts with your active environment. Reflect on how these lessons apply to your question without fighting the natural cycles of fate.
+                </p>
+            </div>
+        `;
+
+        outputNode.innerHTML = outputHtml;
+    }
+
+    // Run setup initialization routine on load loop
+    window.onload = initSpreadLayout;
+</script>
+
+</body>
+</html>
