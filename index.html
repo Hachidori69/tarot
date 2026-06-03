@@ -446,6 +446,7 @@
                 <label for="spreadSelect">Spiritual Matrix Formation</label>
                 <select id="spreadSelect" onchange="initSpreadLayout()">
                     <option value="1card">1-Card Arcana (Instant Alignment)</option>
+                    <option value="3card">3-Card Anchor (Past, Present, Future)</option>
                     <option value="4card">4-Card Pattern (Situation, Obstacle, Advice, Outcome)</option>
                     <option value="5card">5-Card Elemental (Past, Present, Core, Hidden, Future)</option>
                     <option value="7horseshoe">7-Card Horseshoe (Pathways & Hidden Foes)</option>
@@ -499,7 +500,7 @@
         "15_devil": { name: "The Devil (The Bondage)", archetypes: "Capricorn, Shadow Projections, Material Illusions", upright: "The self-imposed cages of addiction, obsession with material security, and chasing lower loops out of safety fears. The key to the lock is already in your hand; you are only bound by your own beliefs.", reversed: "Breaking toxic dependency, shadow work processing, reclaiming your agency, or looking past superficial illusions." },
         "16_tower": { name: "The Tower (The Collapse)", archetypes: "Mars, Sudden Enlightenment, Structural Ruin", upright: "Sudden, disruptive lightning strikes away unstable foundations built on ego or false truths. While scary, this structural collapse is a breakthrough that frees you from a prison of your own creation.", reversed: "Avoiding a necessary crisis, narrow escapes, living inside a fragile house, or delayed inevitable transformations." },
         "17_star": { name: "The Star (The Beacon)", archetypes: "Aquarius, Cosmic Healing, Divine Hope", upright: "Profound energetic restoration, hope, and cosmic alignment. You are protected as you pour your gifts out to the world. It marks a period of deep peace after a long, intense storm.", reversed: "Despair, disconnection from inspiration, lack of faith in your own skills, or mental fatigue hiding future goals." },
-        "18_moon": { name: "The Moon (The Dreamscape)", archetypes: "Pisces, Subconscious Mirages, Illusion", upright: "The realm of illusions, vivid dreams, psychic warnings, and hidden anxieties. Things are not what they look like on the surface. Walk safely through the mist using intuitive radar, not rigid logic.", reversed: "Clearing confusion, truth exposed, irrational fears fading away, or psychological blocks resolving cleanly." },
+        "18_moon": { name: "The Moon (The Dreamscape)", archetypes: "Pisces, Subconscious Mirages, Illusion", font:"italic", upright: "The realm of illusions, vivid dreams, psychic warnings, and hidden anxieties. Things are not what they look like on the surface. Walk safely through the mist using intuitive radar, not rigid logic.", reversed: "Clearing confusion, truth exposed, irrational fears fading away, or psychological blocks resolving cleanly." },
         "19_sun": { name: "The Sun (The Radiance)", archetypes: "The Solar Core, Pure Vitality, Absolute Truth", upright: "Unmitigated joy, explosive vitality, career success, and truth burning away all dark corners. Absolute clarity of mind, high energy, and childlike authenticity that inspires the collective.", reversed: "Temporary cloudiness, hidden arrogance, mild burnout, or success that requires small adjustments to endure long-term." },
         "20_judgement": { name: "Judgement (The Awakening)", archetypes: "Pluto, Higher Calling, Evolution", upright: "An evolutionary wake-up call. Reviewing your life with objective clarity to step into a higher state of consciousness. Your old self is forgiven; answer the higher calling immediately.", reversed: "Self-doubt, ignoring your inner call, staying stuck in obsolete routines, or avoiding necessary transformations due to fear of criticism." },
         "21_world": { name: "The World (The Crown)", archetypes: "Saturn, Absolute Completion, Integration", upright: "The ultimate end of a long karmic cycle. Goals achieved, perfect integration of parts, global perspective, and entering absolute cosmic alignment. You have graduated; enjoy the mastery.", reversed: "Lack of closure, shortcuts preventing full completion, close to the goal line but stuck, or fear of stepping into a brand new era." },
@@ -533,7 +534,7 @@
         "cups_10": { name: "Ten of Cups", upright: "Divine harmony, long-term bliss, emotional legacy safety.", reversed: "Broken family alignment, hidden domestic friction, false facades." },
         "cups_page": { name: "Page of Cups", upright: "Intuitive messages, creative vulnerability, poetic spirit.", reversed: "Emotional tantrums, over-sensitivity blocking logic, escape loops." },
         "cups_knight": { name: "Knight of Cups", upright: "Chasing ideals, artistic romanticism, emotional messenger.", reversed: "Manipulative charm, moodiness, unrealistic relationship matrix." },
-        "cups_queen": { name: "Queen of Cups", upright: "Empathic healer, psychic safety anchor, pure intuition.", reversed: "Martyr complex, boundary issues, emotional codependency." },
+        "cups_queen": { name: "Queen of Cups", font: "italic", upright: "Empathic healer, psychic safety anchor, pure intuition.", reversed: "Martyr complex, boundary issues, emotional codependency." },
         "cups_king": { name: "King of Cups", upright: "Emotional stability, diplomatic mastery, objective kindness.", reversed: "Cold gaslighting, hidden passive-aggression, mood volatility." },
 
         // Swords
@@ -549,7 +550,7 @@
         "swords_10": { name: "Ten of Swords", upright: "Absolute rock bottom, end of painful story, path clear for dawn.", reversed: "Surviving the absolute worst, picking up pieces, hidden recovery." },
         "swords_page": { name: "Page of Swords", upright: "Mental agility, curious researcher, vigilant border watch.", reversed: "All talk no execution, vindictive gossip, analytical cyber-paranoia." },
         "swords_knight": { name: "Knight of Swords", upright: "Unstoppable drive, logical charge, swift mental execution.", reversed: "Impulsive cruelty, chasing errors, erratic action causing crash." },
-        "swords_queen": { name: "Queen of Swords", upright: "Objective boundaries, systemic truth, sharp communication.", reversed: "Overly critical, bitter outlook, freezing out emotional inputs." },
+        "swords_queen": { name: "Queen of Swords", upright: "Objective boundaries, systemic truth, sharp communication.", reversed: "Overly critical, bitter outlook, freezing out emotional habits." },
         "swords_king": { name: "King of Swords", upright: "Intellectual authority, law master, hyper-logical clarity.", reversed: "Tyrannical control, corrupt logic systems, weaponized intellect." },
 
         // Pentacles
@@ -571,7 +572,8 @@
 
     // Advanced Spread Layout Options Mapping Configuration
     const SPREAD_CONFIGS = {
-        "1card": { count: 1, positions: ["Immediate Alignment/Daily Oracle"] },
+        "1card": { count: 1, positions: ["Immediate Alignment / Daily Oracle"] },
+        "3card": { count: 3, positions: ["Past Foundation", "Active Present Situation", "Unfolding Future Destiny"] },
         "4card": { count: 4, positions: ["Current Foundation", "Immediate Roadblock", "Higher Mind Advice", "Targeted Future Outcome"] },
         "5card": { count: 5, positions: ["Past Roots", "Active Present", "Core Synthesis Block", "Hidden Subconscious Realities", "Future Horizons"] },
         "7horseshoe": { count: 7, positions: ["Past Influences", "Present Stance", "Hidden Factors", "The Core Challenge", "External Environment", "Best Action Advice", "Final Karmic Destination"] },
