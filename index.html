@@ -161,7 +161,7 @@
             background: rgba(22, 11, 51, 0.9);
         }
 
-        /* Smart Autocomplete Dropdown Search Box Container */
+        /* Smart Autocomplete Dropdown */
         .autocomplete-wrapper {
             position: relative;
         }
@@ -195,7 +195,7 @@
             padding-left: 1.5rem;
         }
 
-        /* Card Input Slots CSS */
+        /* Card Input Slots */
         .neko-slot-box {
             background: rgba(12, 6, 28, 0.4);
             border: 1px solid rgba(255,255,255,0.05);
@@ -263,42 +263,59 @@
             filter: brightness(1.1);
         }
 
-        /* Dynamic Visual Layout Array Spread */
+        /* Dynamic Spread Grid Canvas */
         .visual-spread-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 2rem;
             margin-bottom: 3.5rem;
-            padding: 1rem;
-            background: rgba(0,0,0,0.15);
-            border-radius: 20px;
-            min-height: 200px;
+            padding: 2rem;
+            background: rgba(0,0,0,0.25);
+            border-radius: 24px;
+            min-height: 250px;
             align-items: center;
         }
 
+        /* High-Fidelity Human Tarot Illustration Frame */
         .card-frame {
-            width: 140px;
-            height: 230px;
-            background: linear-gradient(145deg, #25134e 0%, #0f0724 100%);
+            width: 170px;
+            height: 280px;
+            background: linear-gradient(145deg, #150b30 0%, #070312 100%);
             border: 2px solid var(--gold);
-            border-radius: 14px;
+            border-radius: 16px;
             position: relative;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.7);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 0.75rem;
+            padding: 0.6rem;
             text-align: center;
+            overflow: hidden;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
         }
 
+        .card-frame::before {
+            content: '';
+            position: absolute;
+            top: 4px; left: 4px; right: 4px; bottom: 4px;
+            border: 1px solid rgba(243, 198, 63, 0.2);
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
         .card-frame:hover {
-            box-shadow: 0 0 15px var(--gold);
+            box-shadow: 0 0 25px rgba(243, 198, 63, 0.6);
+            transform: translateY(-5px);
         }
 
         .card-frame.reversed-node {
             transform: rotate(180deg);
+        }
+
+        .card-frame.reversed-node:hover {
+            transform: rotate(180deg) translateY(5px);
         }
 
         .card-frame.reversed-node .stabilize-text {
@@ -306,35 +323,51 @@
         }
 
         .position-badge {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #000;
             background: var(--gold);
-            padding: 0.2rem 0.4rem;
-            border-radius: 6px;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
             font-weight: bold;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            z-index: 3;
+            max-width: 90%;
+            margin: 0 auto;
+            font-family: 'Cinzel', serif;
         }
 
-        .neko-art-box {
-            font-size: 2.2rem;
+        /* Vector Illustration Container */
+        .card-art-canvas {
+            flex-grow: 1;
             margin: 0.5rem 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            filter: drop-shadow(0 0 8px var(--purple-glow));
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-art-canvas svg {
+            width: 100%;
+            height: 100%;
+            max-height: 160px;
         }
 
         .card-title-lbl {
-            font-size: 0.85rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
             font-weight: bold;
-            color: #fff;
+            color: var(--gold-glow);
             min-height: 2.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
             line-height: 1.2;
+            z-index: 3;
+            border-top: 1px solid rgba(243, 198, 63, 0.15);
+            padding-top: 0.4rem;
         }
 
         /* Deep Interpretation Output Layout */
@@ -494,77 +527,164 @@
 <script>
     // Advanced Human Tarot Core Meanings & Kabbalistic/Psychological Correspondences
     const TAROT_DB = {
-        "0_fool": { name: "The Fool", archetypes: "The Cosmic Wanderer • Archetypal Innocence • Uranus", up: "A profound leap of faith, quantum potential, and the dissolution of previous structural limits. You are operating from a blank canvas. Trust the vacuum of the unknown.", rev: "Naivety, reckless steps without systemic grounding, refusing to acknowledge karmic history, or choice paralysis disguised as freedom." },
-        "1_magician": { name: "The Magician", archetypes: "The Conscious Will • Manifestation • Mercury", up: "Active transmutation. You possess the required environmental tools (Intellect, Emotion, Will, Action) to manifest intent. Focus your chaotic ideas into a single pointed direction.", rev: "Wasted talent, intellectual manipulation, trickery, or cognitive bias blinding objective action execution." },
-        "2_high_priestess": { name: "The High Priestess", archetypes: "The Divine Matrix • The Subconscious Mirror • Moon", up: "Strategic stillness. The truths governing your current situation belong to non-linear, subconscious planes. Trust raw intuitive patterns over superficial metrics.", rev: "Prioritizing shallow data points, a deep disconnect from internal instinct, secrets being weaponized, or ignoring clear warning flags." },
-        "3_empress": { name: "The Empress", archetypes: "The Great Mother • Natural Abundance • Venus", up: "Fertile growth vectors, creative synthesis, and standard incubation loops. Something beautiful is assembling beneath the surface—allow it time to grow naturally.", rev: "Creative drought, smothering codependency, material insecurity, or allowing aesthetic vanity to override inner worth." },
-        "4_emperor": { name: "The Emperor", archetypes: "The Divine Architect • Structural Rule • Aries", up: "Establishing absolute order, concrete logic frameworks, and firm emotional and physical boundaries. Take command of your environment with tactical sovereignty.", rev: "Rigid tyranny, structural collapse due to over-regulation, internal powerlessness over-compensating through aggression." },
-        "5_hierophant": { name: "The Hierophant", archetypes: "The Inner Teacher • Institutional Paradigms • Taurus", up: "Conforming to wisdom lineages, mentoring structures, or formal systems of education. Operating within proven laws to attain complete technical mastery.", rev: "Radical spiritual rebellion, outgrowing institutional structures, choosing an unorthodox custom path, or breaking dogma." },
-        "6_lovers": { name: "The Lovers", archetypes: "Alchemical Wedding • Inner Alignment • Gemini", up: "Profound integration of internal dualities. Choosing pathways that honor your deepest, non-negotiable core value matrices. Mutual harmony and soul contracts.", rev: "Asymmetric relationships, values friction, self-sabotaging life choices, or searching outside yourself for psychological wholeness." },
-        "7_chariot": { name: "The Chariot", archetypes: "Mastery of Polarities • Directed Willpower • Cancer", up: "Triumph achieved via intense mental focus over emotional chaotic currents. Directing opposing forces toward a single, unchanging objective.", rev: "Loss of control, directionless momentum causing a crash, emotional volatility derailing logical long-term progress." },
-        "8_strength": { name: "Strength", archetypes: "Soft Fortitude • Shadow Transmutation • Leo", up: "True power operating through patience, quiet endurance, and the compassionate integration of your primitive shadow or animalistic instincts.", rev: "Feelings of absolute inadequacy, giving into raw animal rage, mental fatigue, or masking fear with false bravado." },
-        "9_hermit": { name: "The Hermit", archetypes: "The Self-Luminous Light • Isolation • Virgo", up: "Strategic psychological withdrawal. Your answers cannot be acquired from outer social fields. Seek absolute solitude to clarify your primary human timeline.", rev: "Toxic isolation turning into loneliness, analytical paralysis, or refusing to return to the world after healing." },
-        "10_wheel": { name: "Wheel of Fortune", archetypes: "Karmic Pivot Points • Macro Cycles • Jupiter", up: "Inevitable systemic transitions. External events are shifting outside your sphere of direct physical control. Adapt gracefully to the unexpected cosmic rhythm.", rev: "Resisting natural life transformations, running in repeating negative karmic patterns, temporary friction from bad timing." },
-        "11_justice": { name: "Justice", archetypes: "Immutable Karma • Clear Objectivity • Libra", up: "Absolute truth, objective data validation, and legal clarity. The law of cause and effect is balancing itself out. Take radical responsibility.", rev: "Systemic bias, self-deception, unfair contractual arrangements, or escaping the long-term consequences of an action." },
-        "12_hanged_man": { name: "The Hanged Man", archetypes: "Sacrificial Awakening • Strategic Suspension • Neptune", up: "A brilliant, conscious pause. Voluntarily letting go of ego-driven control loops allows you to view reality from an advanced, enlightened perspective.", rev: "Stagnation, useless martyrdom, wasting time on dead ends, or trying to force progress when the universe demands rest." },
-        "13_death": { name: "Death", archetypes: "Radical Metamorphosis • Absolute Severance • Scorpio", up: "The permanent closing of an obsolete loop. This is structural clearing to allow future growth. Mourn what is dying, but do not cling to the past.", rev: "Resisting necessary endings, long-term decay, staying in a toxic space out of safety fears, delayed transformation." },
-        "14_temperance": { name: "Temperance", archetypes: "Alchemical Synthesis • Harmonious Flow • Sagittarius", up: "Blending conflicting internal metrics into perfect psychic equilibrium. Finding the middle path of patience, healing, and absolute moderation.", rev: "Excessive lifestyles, severe emotional mood swings, conflicting habits, or attempting shortcuts that break your long-term plans." },
-        "15_devil": { name: "The Devil", archetypes: "Material Illusion • Shadow Traps • Capricorn", up: "Self-imposed mental prisons, codependency loops, or over-identifying with survival fears. The exit lock is wide open; look past the illusion of entrapment.", rev: "Breaking free from toxic addictions, reclaiming your personal sovereignty, stepping out of deep shadow traps." },
-        "16_tower": { name: "The Tower", archetypes: "Ego Dissolution • Sudden Enlightenment • Mars", up: "The sudden, disruptive destruction of systems built upon false assumptions or illusions. This painful breakthrough frees you from a hidden prison.", rev: "Narrowly avoiding a much-needed breakdown, living inside a highly volatile illusion, resisting a necessary crisis." },
-        "17_star": { name: "The Star", archetypes: "Cosmic Restoration • Hope • Aquarius", up: "Deep spiritual renewal, clarity of vision, and safe energetic protection. You are completely aligned with your genuine calling after a chaotic storm.", rev: "Despair, disconnection from creative inspiration, extreme cynicism, or mental fatigue obscuring future paths." },
-        "18_moon": { name: "The Moon", archetypes: "The Unconscious Deep • Illusions • Pisces", up: "The matrix of dreams, subconscious processing, hidden anxieties, and psychic patterns. Things are highly mutable right now; rely on intuitive radar.", rev: "The clearing of deep anxieties, illusions exposed by harsh reality check, finding absolute truth within mystery." },
-        "19_sun": { name: "The Sun", archetypes: "Solar Vitality • Absolute Radiance • Solar Core", up: "Unmitigated joy, vibrant health, supreme energetic clarity, and external validation. The truth burns bright, illuminating all previously dark corners.", rev: "Temporary clouds, mild energetic burnout, success requiring ego adjustments, or hidden arrogance causing blindspots." },
-        "20_judgement": { name: "Judgement", archetypes: "Higher Evolution • Absolution • Pluto", up: "An urgent developmental wake-up call. Reviewing your path with total objective clarity to answer a higher, more meaningful career or soul calling.", rev: "Self-doubt blocking evolution, ignoring your intuitive call, remaining stuck in outdated habits out of comfort." },
-        "21_world": { name: "The World", archetypes: "Macro Completion • Absolute Integration • Saturn", up: "The end of a major multi-year evolutionary cycle. Complete integration, deep mastery, and stepping confidently onto an expanded plane of reality.", rev: "Lack of closure, stopping right before the finish line, or cutting corners that prevent complete systemic mastery." },
+        "0_fool": { name: "The Fool", type: "major", archetypes: "The Cosmic Wanderer • Archetypal Innocence • Uranus", up: "A profound leap of faith, quantum potential, and the dissolution of previous structural limits. You are operating from a blank canvas. Trust the vacuum of the unknown.", rev: "Naivety, reckless steps without systemic grounding, refusing to acknowledge karmic history, or choice paralysis disguised as freedom." },
+        "1_magician": { name: "The Magician", type: "major", archetypes: "The Conscious Will • Manifestation • Mercury", up: "Active transmutation. You possess the required environmental tools (Intellect, Emotion, Will, Action) to manifest intent. Focus your chaotic ideas into a single pointed direction.", rev: "Wasted talent, intellectual manipulation, trickery, or cognitive bias blinding objective action execution." },
+        "2_high_priestess": { name: "The High Priestess", type: "major", archetypes: "The Divine Matrix • The Subconscious Mirror • Moon", up: "Strategic stillness. The truths governing your current situation belong to non-linear, subconscious planes. Trust raw intuitive patterns over superficial metrics.", rev: "Prioritizing shallow data points, a deep disconnect from internal instinct, secrets being weaponized, or ignoring clear warning flags." },
+        "3_empress": { name: "The Empress", type: "major", archetypes: "The Great Mother • Natural Abundance • Venus", up: "Fertile growth vectors, creative synthesis, and standard incubation loops. Something beautiful is assembling beneath the surface—allow it time to grow naturally.", rev: "Creative drought, smothering codependency, material insecurity, or allowing aesthetic vanity to override inner worth." },
+        "4_emperor": { name: "The Emperor", type: "major", archetypes: "The Divine Architect • Structural Rule • Aries", up: "Establishing absolute order, concrete logic frameworks, and firm emotional and physical boundaries. Take command of your environment with tactical sovereignty.", rev: "Rigid tyranny, structural collapse due to over-regulation, internal powerlessness over-compensating through aggression." },
+        "5_hierophant": { name: "The Hierophant", type: "major", archetypes: "The Inner Teacher • Institutional Paradigms • Taurus", up: "Conforming to wisdom lineages, mentoring structures, or formal systems of education. Operating within proven laws to attain complete technical mastery.", rev: "Radical spiritual rebellion, outgrowing institutional structures, choosing an unorthodox custom path, or breaking dogma." },
+        "6_lovers": { name: "The Lovers", type: "major", archetypes: "Alchemical Wedding • Inner Alignment • Gemini", up: "Profound integration of internal dualities. Choosing pathways that honor your deepest, non-negotiable core value matrices. Mutual harmony and soul contracts.", rev: "Asymmetric relationships, values friction, self-sabotaging life choices, or searching outside yourself for psychological wholeness." },
+        "7_chariot": { name: "The Chariot", type: "major", archetypes: "Mastery of Polarities • Directed Willpower • Cancer", up: "Triumph achieved via intense mental focus over emotional chaotic currents. Directing opposing forces toward a single, unchanging objective.", rev: "Loss of control, directionless momentum causing a crash, emotional volatility derailing logical long-term progress." },
+        "8_strength": { name: "Strength", type: "major", archetypes: "Soft Fortitude • Shadow Transmutation • Leo", up: "True power operating through patience, quiet endurance, and the compassionate integration of your primitive shadow or animalistic instincts.", rev: "Feelings of absolute inadequacy, giving into raw animal rage, mental fatigue, or masking fear with false bravado." },
+        "9_hermit": { name: "The Hermit", type: "major", archetypes: "The Self-Luminous Light • Isolation • Virgo", up: "Strategic psychological withdrawal. Your answers cannot be acquired from outer social fields. Seek absolute solitude to clarify your primary human timeline.", rev: "Toxic isolation turning into loneliness, analytical paralysis, or refusing to return to the world after healing." },
+        "10_wheel": { name: "Wheel of Fortune", type: "major", archetypes: "Karmic Pivot Points • Macro Cycles • Jupiter", up: "Inevitable systemic transitions. External events are shifting outside your sphere of direct physical control. Adapt gracefully to the unexpected cosmic rhythm.", rev: "Resisting natural life transformations, running in repeating negative karmic patterns, temporary friction from bad timing." },
+        "11_justice": { name: "Justice", type: "major", archetypes: "Immutable Karma • Clear Objectivity • Libra", up: "Absolute truth, objective data validation, and legal clarity. The law of cause and effect is balancing itself out. Take radical responsibility.", rev: "Systemic bias, self-deception, unfair contractual arrangements, or escaping the long-term consequences of an action." },
+        "12_hanged_man": { name: "The Hanged Man", type: "major", archetypes: "Sacrificial Awakening • Strategic Suspension • Neptune", up: "A brilliant, conscious pause. Voluntarily letting go of ego-driven control loops allows you to view reality from an advanced, enlightened perspective.", rev: "Stagnation, useless martyrdom, wasting time on dead ends, or trying to force progress when the universe demands rest." },
+        "13_death": { name: "Death", type: "major", archetypes: "Radical Metamorphosis • Absolute Severance • Scorpio", up: "The permanent closing of an obsolete loop. This is structural clearing to allow future growth. Mourn what is dying, but do not cling to the past.", rev: "Resisting necessary endings, long-term decay, staying in a toxic space out of safety fears, delayed transformation." },
+        "14_temperance": { name: "Temperance", type: "major", archetypes: "Alchemical Synthesis • Harmonious Flow • Sagittarius", up: "Blending conflicting internal metrics into perfect psychic equilibrium. Finding the middle path of patience, healing, and absolute moderation.", rev: "Excessive lifestyles, severe emotional mood swings, conflicting habits, or attempting shortcuts that break your long-term plans." },
+        "15_devil": { name: "The Devil", type: "major", archetypes: "Material Illusion • Shadow Traps • Capricorn", up: "Self-imposed mental prisons, codependency loops, or over-identifying with survival fears. The exit lock is wide open; look past the illusion of entrapment.", rev: "Breaking free from toxic addictions, reclaiming your personal sovereignty, stepping out of deep shadow traps." },
+        "16_tower": { name: "The Tower", type: "major", archetypes: "Ego Dissolution • Sudden Enlightenment • Mars", up: "The sudden, disruptive destruction of systems built upon false assumptions or illusions. This painful breakthrough frees you from a hidden prison.", rev: "Narrowly avoiding a much-needed breakdown, living inside a highly volatile illusion, resisting a necessary crisis." },
+        "17_star": { name: "The Star", type: "major", archetypes: "Cosmic Restoration • Hope • Aquarius", up: "Deep spiritual renewal, clarity of vision, and safe energetic protection. You are completely aligned with your genuine calling after a chaotic storm.", rev: "Despair, disconnection from creative inspiration, extreme cynicism, or mental fatigue obscuring future paths." },
+        "18_moon": { name: "The Moon", type: "major", archetypes: "The Unconscious Deep • Illusions • Pisces", up: "The matrix of dreams, subconscious processing, hidden anxieties, and psychic patterns. Things are highly mutable right now; rely on intuitive radar.", rev: "The clearing of deep anxieties, illusions exposed by harsh reality check, finding absolute truth within mystery." },
+        "19_sun": { name: "The Sun", type: "major", archetypes: "Solar Vitality • Absolute Radiance • Solar Core", up: "Unmitigated joy, vibrant health, supreme energetic clarity, and external validation. The truth burns bright, illuminating all previously dark corners.", rev: "Temporary clouds, mild energetic burnout, success requiring ego adjustments, or hidden arrogance causing blindspots." },
+        "20_judgement": { name: "Judgement", type: "major", archetypes: "Higher Evolution • Absolution • Pluto", up: "An urgent developmental wake-up call. Reviewing your path with total objective clarity to answer a higher, more meaningful career or soul calling.", rev: "Self-doubt blocking evolution, ignoring your intuitive call, remaining stuck in outdated habits out of comfort." },
+        "21_world": { name: "The World", type: "major", archetypes: "Macro Completion • Absolute Integration • Saturn", up: "The end of a major multi-year evolutionary cycle. Complete integration, deep mastery, and stepping confidently onto an expanded plane of reality.", rev: "Lack of closure, stopping right before the finish line, or cutting corners that prevent complete systemic mastery." },
 
         // Wands (Will, Ambition, Fire)
-        "wands_1": { name: "Ace of Wands", archetypes: "Creative Fire", up: "A fresh spark of ambition, vital passion, and entrepreneurial inspiration.", rev: "Misfires, lost creative energy, a severe lack of internal drive." },
-        "wands_2": { name: "Two of Wands", archetypes: "Strategic Future", up: "Holding power, evaluating global plans, and preparing for future expansion.", rev: "Playing too safe, fear of taking a real risk, staying in narrow boxes." },
-        "wands_3": { name: "Three of Wands", archetypes: "Horizon Expansion", up: "Your efforts are compounding. Growth, expansion, and ships returning with rewards.", rev: "Execution failures, unexpected bottlenecks, playing small due to insecurity." },
-        "wands_4": { name: "Four of Wands", archetypes: "Community Foundations", up: "Stable environments, safety milestones, harmony, and profound domestic peace.", rev: "Internal family friction, unstable structural foundations, delayed joy." },
-        "wands_5": { name: "Five of Wands", archetypes: "Ego Friction", up: "Clashing opinions, intense competition, static noise, and petty arguments.", rev: "Conflict avoidance, finding productive compromises, returning to alignment." },
-        "wands_6": { name: "Six of Wands", archetypes: "Public Triumph", up: "Public recognition, validation for your hard work, and leadership momentum.", rev: "A swift fall from grace, imposter syndrome, superficial applause masking failure." },
-        "wands_7": { name: "Seven of Wands", archetypes: "Sovereignty Defense", up: "Defending your values, protecting boundaries against competitive envy.", rev: "Giving up under pressure, defensive exhaustion, feeling completely overrun." },
-        "wands_8": { name: "Eight of Wands", archetypes: "Rapid Vectors", up: "Extreme forward velocity, rapid clear communications, instant alignment.", rev: "Chaotic updates, impulsive choices, stalls across structural systems." },
-        "wands_9": { name: "Nine of Wands", archetypes: "Resilient Boundaries", up: "The final stretch. Extreme psychological grit, battle-weary but unbroken lines.", rev: "Absolute burnout, paranoia, dropping your guards when success is close." },
-        "wands_10": { name: "Ten of Wands", archetypes: "Over-Commitment", up: "Carrying unmanageable pressures, burning out from saying yes to too much.", rev: "Smart structural delegation, dropping useless weights, breakdown from stress." },
+        "wands_1": { name: "Ace of Wands", type: "wands", archetypes: "Creative Fire", up: "A fresh spark of ambition, vital passion, and entrepreneurial inspiration.", rev: "Misfires, lost creative energy, a severe lack of internal drive." },
+        "wands_2": { name: "Two of Wands", type: "wands", archetypes: "Strategic Future", up: "Holding power, evaluating global plans, and preparing for future expansion.", rev: "Playing too safe, fear of taking a real risk, staying in narrow boxes." },
+        "wands_3": { name: "Three of Wands", type: "wands", archetypes: "Horizon Expansion", up: "Your efforts are compounding. Growth, expansion, and ships returning with rewards.", rev: "Execution failures, unexpected bottlenecks, playing small due to insecurity." },
+        "wands_4": { name: "Four of Wands", type: "wands", archetypes: "Community Foundations", up: "Stable environments, safety milestones, harmony, and profound domestic peace.", rev: "Internal family friction, unstable structural foundations, delayed joy." },
+        "wands_5": { name: "Five of Wands", type: "wands", archetypes: "Ego Friction", up: "Clashing opinions, intense competition, static noise, and petty arguments.", rev: "Conflict avoidance, finding productive compromises, returning to alignment." },
+        "wands_6": { name: "Six of Wands", type: "wands", archetypes: "Public Triumph", up: "Public recognition, validation for your hard work, and leadership momentum.", rev: "A swift fall from grace, imposter syndrome, superficial applause masking failure." },
+        "wands_7": { name: "Seven of Wands", type: "wands", archetypes: "Sovereignty Defense", up: "Defending your values, protecting boundaries against competitive envy.", rev: "Giving up under pressure, defensive exhaustion, feeling completely overrun." },
+        "wands_8": { name: "Eight of Wands", type: "wands", archetypes: "Rapid Vectors", up: "Extreme forward velocity, rapid clear communications, instant alignment.", rev: "Chaotic updates, impulsive choices, stalls across structural systems." },
+        "wands_9": { name: "Nine of Wands", type: "wands", archetypes: "Resilient Boundaries", up: "The final stretch. Extreme psychological grit, battle-weary but unbroken lines.", rev: "Absolute burnout, paranoia, dropping your guards when success is close." },
+        "wands_10": { name: "Ten of Wands", type: "wands", archetypes: "Over-Commitment", up: "Carrying unmanageable pressures, burning out from saying yes to too much.", rev: "Smart structural delegation, dropping useless weights, breakdown from stress." },
 
         // Cups (Emotion, Intuition, Water)
-        "cups_1": { name: "Ace of Cups", archetypes: "Emotional Dawn", up: "Pure emotional healing, intuitive breakthroughs, and deep relational renewal.", rev: "Neglecting self-care, blocked emotional flow, psychological defense shields." },
-        "cups_2": { name: "Two of Cups", archetypes: "Sacred Resonance", up: "Harmonious partnerships, mutual validation, and deep connection contracts.", rev: "Trust issues, transactional giving, emotional disconnect in relationships." },
-        "cups_3": { name: "Three of Cups", archetypes: "Collective Joy", up: "Thriving community support networks, shared wins, collaborative alignment.", rev: "Overindulgence draining your focus, toxic gossip, feeling excluded from circles." },
-        "cups_4": { name: "Four of Cups", archetypes: "Apathy Feedback", up: "Mental boredom, stagnation, and completely overlooking your current blessings.", rev: "Sudden breakthroughs out of a rut, active engagement, fresh perspective." },
-        "cups_5": { name: "Five of Cups", archetypes: "Grief Fixation", up: "Fixating entirely on past losses or failures while ignoring options that remain.", rev: "Emotional recovery, processing deep grief, moving past regret." },
-        "cups_6": { name: "Six of Cups", archetypes: "Root Nostalgia", up: "Reclaiming internal childhood purity, nostalgic sweetness, and roots.", rev: "Living entirely in past memories, refusing to evolve, outdated family scripts." },
-        "cups_7": { name: "Seven of Cups", archetypes: "Option Illusions", up: "Paradox of choice, over-daydreaming, and tempting illusions with no substance.", rev: "Cutting out noise, waking up to reality, picking one practical path forward." },
-        "cups_8": { name: "Eight of Cups", archetypes: "Conscious Exodus", up: "Walking away from things that no longer fulfill your psychological core.", rev: "Fear of moving on, staying in toxic spaces out of safety defaults." },
-        "cups_9": { name: "Nine of Cups", archetypes: "Self-Containment", up: "Deep personal satisfaction, emotional alignment, and your wishes fulfilling.", rev: "Chasing shallow vanity, unfulfilled inner voids despite luxury." },
-        "cups_10": { name: "Ten of Cups", archetypes: "Unified Fulfillment", up: "Long-term relational stability, emotional safety, and soul group peace.", rev: "Domestic disharmony, masking deep friction behind a fake public profile." },
+        "cups_1": { name: "Ace of Cups", type: "cups", archetypes: "Emotional Dawn", up: "Pure emotional healing, intuitive breakthroughs, and deep relational renewal.", rev: "Neglecting self-care, blocked emotional flow, psychological defense shields." },
+        "cups_2": { name: "Two of Cups", type: "cups", archetypes: "Sacred Resonance", up: "Harmonious partnerships, mutual validation, and deep connection contracts.", rev: "Trust issues, transactional giving, emotional disconnect in relationships." },
+        "cups_3": { name: "Three of Cups", type: "cups", archetypes: "Collective Joy", up: "Thriving community support networks, shared wins, collaborative alignment.", rev: "Overindulgence draining your focus, toxic gossip, feeling excluded from circles." },
+        "cups_4": { name: "Four of Cups", type: "cups", archetypes: "Apathy Feedback", up: "Mental boredom, stagnation, and completely overlooking your current blessings.", rev: "Sudden breakthroughs out of a rut, active engagement, fresh perspective." },
+        "cups_5": { name: "Five of Cups", type: "cups", archetypes: "Grief Fixation", up: "Fixating entirely on past losses or failures while ignoring options that remain.", rev: "Emotional recovery, processing deep grief, moving past regret." },
+        "cups_6": { name: "Six of Cups", type: "cups", archetypes: "Root Nostalgia", up: "Reclaiming internal childhood purity, nostalgic sweetness, and roots.", rev: "Living entirely in past memories, refusing to evolve, outdated family scripts." },
+        "cups_7": { name: "Seven of Cups", type: "cups", archetypes: "Option Illusions", up: "Paradox of choice, over-daydreaming, and tempting illusions with no substance.", rev: "Cutting out noise, waking up to reality, picking one practical path forward." },
+        "cups_8": { name: "Eight of Cups", type: "cups", archetypes: "Conscious Exodus", up: "Walking away from things that no longer fulfill your psychological core.", rev: "Fear of moving on, staying in toxic spaces out of safety defaults." },
+        "cups_9": { name: "Nine of Cups", type: "cups", archetypes: "Self-Containment", up: "Deep personal satisfaction, emotional alignment, and your wishes fulfilling.", rev: "Chasing shallow vanity, unfulfilled inner voids despite luxury." },
+        "cups_10": { name: "Ten of Cups", type: "cups", archetypes: "Unified Fulfillment", up: "Long-term relational stability, emotional safety, and soul group peace.", rev: "Domestic disharmony, masking deep friction behind a fake public profile." },
 
         // Swords (Mind, Intellect, Air)
-        "swords_1": { name: "Ace of Swords", archetypes: "Mental Piercing", up: "A major cognitive breakthrough, absolute razor-sharp clarity, and truth.", rev: "Overthinking loops, miscommunication catastrophes, weaponized logic errors." },
-        "swords_2": { name: "Two of Swords", archetypes: "Stalemate Evand", up: "A structural crossroad, refusing to look at hard facts to avoid a choice.", rev: "Information overload clearing out, a forced decision, truth emerging." },
-        "swords_3": { name: "Three of Swords", archetypes: "Necessary Catharsis", up: "Emotional pain, facing painful data, clearing illusions via a reality check.", rev: "Suppressed trauma, refusing to allow healing, staying inside dark feedback loops." },
-        "swords_4": { name: "Four of Swords", archetypes: "Mental Sanctuary", up: "Strategic intellectual retreat, rest, dynamic meditation, and recovery.", rev: "Severe mental burnout from ignoring exhaustion, dynamic collapse." },
-        "swords_5": { name: "Five of Swords", archetypes: "Hollow Wins", up: "Winning at all costs, broken relationship fields, pride overriding logic.", rev: "Desire for peace, letting go of useless fights, clearing up resentment." },
-        "swords_6": { name: "Six of Swords", archetypes: "Cognitive Transit", up: "Leaving chaotic mental waters for objective psychological stability.", rev: "Carrying unneeded mental baggage, resisting necessary moves, feeling stuck." },
-        "swords_7": { name: "Seven of Swords", archetypes: "Strategic Solitude", up: "Tactical maneuvering, resource conservation, independent strategies.", rev: "Conscience waking up, poor battle plans, deceptive habits coming to light." },
-        "swords_8": { name: "Eight of Swords", archetypes: "Mental Cage", up: "Self-imposed intellectual traps, treating yourself like a victim of circumstance.", rev: "Reclaiming personal agency, stepping out of mental traps, taking control." },
-        "swords_9": { name: "Nine of Swords", archetypes: "Anxiety Feed", up: "Vicious anxiety loops, insomnia, and amplifying your worst fears.", rev: "Discovering fears were wildly exaggerated, the fog lifting cleanly." },
-        "swords_10": { name: "Ten of Swords", archetypes: "Definitive Dawn", up: "Absolute rock bottom. The painful story is over; the dawn has arrived.", rev: "Surviving an absolute worst-case scenario, picking up pieces, hidden recovery." },
+        "swords_1": { name: "Ace of Swords", type: "swords", archetypes: "Mental Piercing", up: "A major cognitive breakthrough, absolute razor-sharp clarity, and truth.", rev: "Overthinking loops, miscommunication catastrophes, weaponized logic errors." },
+        "swords_2": { name: "Two of Swords", type: "swords", archetypes: "Stalemate Evand", up: "A structural crossroad, refusing to look at hard facts to avoid a choice.", rev: "Information overload clearing out, a forced decision, truth emerging." },
+        "swords_3": { name: "Three of Swords", type: "swords", archetypes: "Necessary Catharsis", up: "Emotional pain, facing painful data, clearing illusions via a reality check.", rev: "Suppressed trauma, refusing to allow healing, staying inside dark feedback loops." },
+        "swords_4": { name: "Four of Swords", type: "swords", archetypes: "Mental Sanctuary", up: "Strategic intellectual retreat, rest, dynamic meditation, and recovery.", rev: "Severe mental burnout from ignoring exhaustion, dynamic collapse." },
+        "swords_5": { name: "Five of Swords", type: "swords", archetypes: "Hollow Wins", up: "Winning at all costs, broken relationship fields, pride overriding logic.", rev: "Desire for peace, letting go of useless fights, clearing up resentment." },
+        "swords_6": { name: "Six of Swords", type: "swords", archetypes: "Cognitive Transit", up: "Leaving chaotic mental waters for objective psychological stability.", rev: "Carrying unneeded mental baggage, resisting necessary moves, feeling stuck." },
+        "swords_7": { name: "Seven of Swords", type: "swords", archetypes: "Strategic Solitude", up: "Tactical maneuvering, resource conservation, independent strategies.", rev: "Conscience waking up, poor battle plans, deceptive habits coming to light." },
+        "swords_8": { name: "Eight of Swords", type: "swords", archetypes: "Mental Cage", up: "Self-imposed intellectual traps, treating yourself like a victim of circumstance.", rev: "Reclaiming personal agency, stepping out of mental traps, taking control." },
+        "swords_9": { name: "Nine of Swords", type: "swords", archetypes: "Anxiety Feed", up: "Vicious anxiety loops, insomnia, and amplifying your worst fears.", rev: "Discovering fears were wildly exaggerated, the fog lifting cleanly." },
+        "swords_10": { name: "Ten of Swords", type: "swords", archetypes: "Definitive Dawn", up: "Absolute rock bottom. The painful story is over; the dawn has arrived.", rev: "Surviving an absolute worst-case scenario, picking up pieces, hidden recovery." },
 
         // Pentacles (Earth, Assets, Material Reality)
-        "pentacles_1": { name: "Ace of Pentacles", archetypes: "Material Anchor", up: "A fresh physical venture, financial security blueprints, real-world returns.", rev: "Missed wealth paths, poor asset planning, structural loss or delays." },
-        "pentacles_2": { name: "Two of Pentacles", archetypes: "Agile Balance", up: "Managing volatile resource metrics and schedules with fluid mastery.", rev: "Erratic cash flow, dropping primary balls due to over-commitment." },
-        "pentacles_3": { name: "Three of Pentacles", archetypes: "Master Craft", up: "Highly collaborative teamwork, refining core skill matrices, peer respect.", rev: "Ego friction on teams, low execution metrics, poor workflow patterns." },
-        "pentacles_4": { name: "Four of Pentacles", archetypes: "Scarcity Hoarding", up: "Clinging to defensive comfort zones, control boxes born of scarcity fears.", rev: "Letting go of toxic attachments, unexpected expenses, opening up flow." },
-        "pentacles_5": { name: "Five of Pentacles", archetypes: "Financial Winter", up: "Temporary material hardship, isolation, overlooking available assistance.", rev: "Recovering from financial valleys, renewed hope, finding missing resources." },
-        "pentacles_6": { name: "Six of Pentacles", archetypes: "Resource Equilibrium", up: "Balanced giving and receiving loops, fair monetization structures.", rev: "Strings-attached arrangements, severe power imbalances, hidden debts." },
-        "pentacles_7": { name: "Seven of Pentacles", archetypes: "Compounding Patience", up: "Stepping back to evaluate long-term resource investment returns.", rev: "Impatience causing errors, low returns due to abandoned energy fields." },
-        "pentacles_8": { name: "Eight of Pentacles", archetypes: "Iterative Mastery", up: "Obsessive dedication to improving your specialized technical skill assets.", rev: "Perfectionism traps, uninspired repetitive tasks, misaligned skill building." },
-        "pentacles_9": { name: "Nine of Pentacles", archetypes: "Material Autonomy", up: "Financial self-reliance, personal luxury, operating with deep autonomy.", rev: "Financial dependencies, pretending to be wealthy, internal empty voids." },
-        "pentacles_10": { name: "Ten of Pentacles", archetypes: "Systemic Legacy", up: "Generational wealth architecture, permanent foundations, secure networks.", rev: "Asset disputes, legacy structures fracturing, infrastructural failure risks." }
+        "pentacles_1": { name: "Ace of Pentacles", type: "pentacles", archetypes: "Material Anchor", up: "A fresh physical venture, financial security blueprints, real-world returns.", rev: "Missed wealth paths, poor asset planning, structural loss or delays." },
+        "pentacles_2": { name: "Two of Pentacles", type: "pentacles", archetypes: "Agile Balance", up: "Managing volatile resource metrics and schedules with fluid mastery.", rev: "Erratic cash flow, dropping primary balls due to over-commitment." },
+        "pentacles_3": { name: "Three of Pentacles", type: "pentacles", archetypes: "Master Craft", up: "Highly collaborative teamwork, refining core skill matrices, peer respect.", rev: "Ego friction on teams, low execution metrics, poor workflow patterns." },
+        "pentacles_4": { name: "Four of Pentacles", type: "pentacles", archetypes: "Scarcity Hoarding", up: "Clinging to defensive comfort zones, control boxes born of scarcity fears.", rev: "Letting go of toxic attachments, unexpected expenses, opening up flow." },
+        "pentacles_5": { name: "Five of Pentacles", type: "pentacles", archetypes: "Financial Winter", up: "Temporary material hardship, isolation, overlooking available assistance.", rev: "Recovering from financial valleys, renewed hope, finding missing resources." },
+        "pentacles_6": { name: "Six of Pentacles", type: "pentacles", archetypes: "Resource Equilibrium", up: "Balanced giving and receiving loops, fair monetization structures.", rev: "Strings-attached arrangements, severe power imbalances, hidden debts." },
+        "pentacles_7": { name: "Seven of Pentacles", type: "pentacles", archetypes: "Compounding Patience", up: "Stepping back to evaluate long-term resource investment returns.", rev: "Impatience causing errors, low returns due to abandoned energy fields." },
+        "pentacles_8": { name: "Eight of Pentacles", type: "pentacles", archetypes: "Iterative Mastery", up: "Obsessive dedication to improving your specialized technical skill assets.", rev: "Perfectionism traps, uninspired repetitive tasks, misaligned skill building." },
+        "pentacles_9": { name: "Nine of Pentacles", type: "pentacles", archetypes: "Material Autonomy", up: "Financial self-reliance, personal luxury, operating with deep autonomy.", rev: "Financial dependencies, pretending to be wealthy, internal empty voids." },
+        "pentacles_10": { name: "Ten of Pentacles", type: "pentacles", archetypes: "Systemic Legacy", up: "Generational wealth architecture, permanent foundations, secure networks.", rev: "Asset disputes, legacy structures fracturing, infrastructural failure risks." }
     };
+
+    // Scalable High-Fidelity SVG Art Assets Generator Engine
+    function getCardSvgContent(type, name) {
+        const bgMatrix = `<rect width="100%" height="100%" fill="url(#cosmicGrad)"/>
+            <circle cx="75" cy="80" r="50" fill="none" stroke="rgba(243, 198, 63, 0.08)" stroke-width="1"/>
+            <circle cx="75" cy="80" r="35" fill="none" stroke="rgba(243, 198, 63, 0.12)" stroke-width="1" stroke-dasharray="4,4"/>
+            <line x1="75" y1="15" x2="75" y2="145" stroke="rgba(243, 198, 63, 0.06)" stroke-width="1"/>
+            <line x1="10" y1="80" x2="140" y2="80" stroke="rgba(243, 198, 63, 0.06)" stroke-width="1"/>`;
+
+        switch(type) {
+            case "major":
+                // Celestial / Spiritual Oracle Graphics Mapping
+                return `<svg viewBox="0 0 150 160">
+                    <defs><linearGradient id="cosmicGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#140933"/><stop offset="100%" stop-color="#05020a"/></linearGradient></defs>
+                    ${bgMatrix}
+                    <!-- Eye of Providence / All-Seeing Mystic Arcana -->
+                    <path d="M35 80 Q75 40 115 80 Q75 120 35 80 Z" fill="rgba(124, 58, 237, 0.2)" stroke="#f3c63f" stroke-width="1.5"/>
+                    <circle cx="75" cy="80" r="16" fill="rgba(11, 5, 29, 0.8)" stroke="#00ffcc" stroke-width="1.5"/>
+                    <circle cx="75" cy="80" r="6" fill="#f3c63f"/>
+                    <!-- Rays of Enlightenment -->
+                    <path d="M75 35 L75 25 M75 125 L75 135 M30 80 L20 80 M120 80 L130 80" stroke="#f3c63f" stroke-width="1" stroke-linecap="round"/>
+                </svg>`;
+            case "wands":
+                // Fire / Sparking Staves Graphics Mapping
+                return `<svg viewBox="0 0 150 160">
+                    <defs><linearGradient id="cosmicGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1a0b2e"/><stop offset="100%" stop-color="#080212"/></linearGradient></defs>
+                    ${bgMatrix}
+                    <!-- Crossed Flaming Torches / Wands Core -->
+                    <g transform="rotate(45 75 80)">
+                        <rect x="71" y="25" width="8" height="110" rx="4" fill="url(#wandsWood)" stroke="#f3c63f" stroke-width="1"/>
+                        <path d="M67 25 Q75 -5 83 25 Z" fill="#db2777" opacity="0.8"/>
+                        <path d="M70 25 Q75 5 80 25 Z" fill="#f3c63f"/>
+                    </g>
+                    <g transform="rotate(-45 75 80)">
+                        <rect x="71" y="25" width="8" height="110" rx="4" fill="url(#wandsWood)" stroke="#f3c63f" stroke-width="1"/>
+                        <path d="M67 25 Q75 -5 83 25 Z" fill="#db2777" opacity="0.8"/>
+                        <path d="M70 25 Q75 5 80 25 Z" fill="#f3c63f"/>
+                    </g>
+                    <defs><linearGradient id="wandsWood" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#4c1d95"/><stop offset="100%" stop-color="#2e1065"/></linearGradient></defs>
+                </svg>`;
+            case "cups":
+                // Water / Fluid Holy Chalice Graphics Mapping
+                return `<svg viewBox="0 0 150 160">
+                    <defs><linearGradient id="cosmicGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0b1a30"/><stop offset="100%" stop-color="#020a14"/></linearGradient></defs>
+                    ${bgMatrix}
+                    <!-- The Divine Flowing Chalice -->
+                    <path d="M45 45 L105 45 Q105 85 75 85 Q45 85 45 45 Z" fill="rgba(0, 255, 204, 0.15)" stroke="#f3c63f" stroke-width="2"/>
+                    <path d="M71 85 L79 85 L85 120 L65 120 Z" fill="#f3c63f"/>
+                    <ellipse cx="75" cy="120" rx="20" ry="6" fill="#f3c63f"/>
+                    <!-- Effervescent Floating Intuition Spheres -->
+                    <circle cx="75" cy="30" r="4" fill="#00ffcc" opacity="0.8"/>
+                    <circle cx="62" cy="22" r="2.5" fill="#fff099" opacity="0.6"/>
+                    <circle cx="88" cy="24" r="3" fill="#00ffcc" opacity="0.5"/>
+                </svg>`;
+            case "swords":
+                // Air / Sharp Athame Blades Graphics Mapping
+                return `<svg viewBox="0 0 150 160">
+                    <defs><linearGradient id="cosmicGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#09090c"/></linearGradient></defs>
+                    ${bgMatrix}
+                    <!-- Upright Piercing Sword of Truth -->
+                    <g transform="translate(75, 75) scale(1.1)">
+                        <path d="M-4 -55 L4 -55 L6 20 L-6 20 Z" fill="linear-gradient(to right, #fff, #c0b3e0)" stroke="#c0b3e0" stroke-width="1"/>
+                        <line x1="0" y1="-55" x2="0" y2="20" stroke="#160c33" stroke-width="1"/>
+                        <!-- Guard / Hilt -->
+                        <rect x="-16" y="20" width="32" height="5" rx="2" fill="#f3c63f"/>
+                        <rect x="-3" y="25" width="6" height="20" fill="#f3c63f"/>
+                        <circle cx="0" cy="48" r="4" fill="#00ffcc"/>
+                    </g>
+                    <!-- Crown of Intellect Ring -->
+                    <path d="M50 35 Q75 25 100 35 L95 43 L55 43 Z" fill="none" stroke="#f3c63f" stroke-width="1"/>
+                </svg>`;
+            case "pentacles":
+                // Earth / Material Inscribed Coins Graphics Mapping
+                return `<svg viewBox="0 0 150 160">
+                    <defs><linearGradient id="cosmicGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1910"/><stop offset="100%" stop-color="#080704"/></linearGradient></defs>
+                    ${bgMatrix}
+                    <!-- The Golden Medallion / Pentacle System -->
+                    <circle cx="75" cy="80" r="38" fill="rgba(243, 198, 63, 0.1)" stroke="#f3c63f" stroke-width="2.5"/>
+                    <circle cx="75" cy="80" r="32" fill="none" stroke="#f3c63f" stroke-width="1" stroke-dasharray="3,3"/>
+                    <!-- Dynamic Star Core Lines -->
+                    <path d="M75 42 L84 70 L113 70 L90 88 L98 116 L75 98 L52 116 L60 88 L37 70 L66 70 Z" fill="none" stroke="#f3c63f" stroke-width="1.5" stroke-linejoin="round"/>
+                </svg>`;
+            default:
+                // Default Canvas Placeholder Configuration
+                return `<svg viewBox="0 0 150 160">${bgMatrix}</svg>`;
+        }
+    }
 
     const SPREAD_CONFIGS = {
         "1card": { count: 1, positions: ["Core Energy / Daily Focus"] },
@@ -682,21 +802,22 @@
             const orientation = currentCardOrientations[i];
             
             let cardDisplayTitle = "Unmapped Node";
-            let glyph = "✨";
+            let svgArt = `<svg viewBox="0 0 150 160">
+                <rect width="100%" height="100%" fill="rgba(255,255,255,0.02)"/>
+                <path d="M35 80 L115 80 M75 40 L75 120" stroke="rgba(243, 198, 63, 0.1)" stroke-width="1"/>
+                <text x="75" y="85" fill="rgba(243, 198, 63, 0.2)" font-size="24" text-anchor="middle">🔮</text>
+            </svg>`;
 
             if (selectVal && TAROT_DB[selectVal]) {
                 cardDisplayTitle = TAROT_DB[selectVal].name;
-                glyph = selectVal.includes("wands") ? "🪄" : 
-                        selectVal.includes("cups") ? "🍷" : 
-                        selectVal.includes("swords") ? "⚔️" : 
-                        selectVal.includes("pentacles") ? "🪙" : "🔮";
+                svgArt = getCardSvgContent(TAROT_DB[selectVal].type, selectVal);
             }
 
             const card = document.createElement("div");
             card.className = `card-frame ${orientation === 'reversed' ? 'reversed-node' : ''}`;
             card.innerHTML = `
                 <div class="stabilize-text position-badge">${config.positions[i].split(" ")[0]}</div>
-                <div class="neko-art-box">${glyph}</div>
+                <div class="card-art-canvas">${svgArt}</div>
                 <div class="stabilize-text">
                     <div class="card-title-lbl">${cardDisplayTitle}</div>
                 </div>
@@ -757,7 +878,7 @@
                 if (item.positionName.includes("Past")) {
                     analyticalInsight = `This placement operates as your foundation. The psychological footprint of ${item.data.name} dictates that your current assumptions about "${question}" were forged under this structural reality. Whether integrated or suppressed, this node marks the exit velocity of your previous life cycle.`;
                 } else if (item.positionName.includes("Present") || item.positionName.includes("Challenge") || item.positionName.includes("Roadblock")) {
-                    analyticalInsight = `The core friction point. ${item.data.name} intersecting this space implies that your conscious awareness is facing an structural turning point. Your energy needs to step away from reactive responses and transition into strategic observation. Look closely at the archetypal forces playing out here.`;
+                    analyticalInsight = `The core friction point. ${item.data.name} intersecting this space implies that your conscious awareness is facing a structural turning point. Your energy needs to step away from reactive responses and transition into strategic observation. Look closely at the archetypal forces playing out here.`;
                 } else if (item.positionName.includes("Future") || item.positionName.includes("Outcome")) {
                     analyticalInsight = `The highest mathematical probability vector. If your current present trajectory remains unmodified, the energy fields will organically crystallize into ${item.data.name}. This is not a fixed, immutable sentence, but a developmental invitation to prepare your psychological infrastructure.`;
                 } else {
